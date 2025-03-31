@@ -10,6 +10,17 @@ const browse: RequestHandler = async (req, res, next) => {
   }
 };
 
+const browseBYCompany: RequestHandler = async (req, res, next) => {
+  try {
+    const companyId = Number(req.params.id);
+
+    const van = await vanRepository.readAllByCompany(companyId);
+    res.json(van);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const read: RequestHandler = async (req, res, next) => {
   try {
     const vanId = Number(req.params.id);
@@ -79,4 +90,4 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, edit, add, destroy };
+export default { browse, browseBYCompany, read, edit, add, destroy };

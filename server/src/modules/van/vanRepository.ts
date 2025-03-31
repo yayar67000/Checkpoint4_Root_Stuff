@@ -42,6 +42,14 @@ class vanRepository {
     return rows as Van[];
   }
 
+  async readAllByCompany(id: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT van.*, company.name AS company_name, company.description AS company_description, company.address AS company_address, company.logo AS company_logo FROM van JOIN company ON van.company_id = company.id WHERE van.company_id = ? GROUP BY van.id",
+      [id],
+    );
+    return rows as Van[];
+  }
+
   async update(van: Van) {
     const [result] = await databaseClient.query<Result>(
       "update van set name = ?, number_plate = ?, picture = ?, fuel = ?, lbs = ?, brand = ?, company_id = ? where id = ?",

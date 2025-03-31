@@ -38,6 +38,14 @@ class companyRepository {
     return rows as Company[];
   }
 
+  async ReadAllByCountry(id: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT company.*, country.name AS country_name, country.picture AS country_picture FROM company JOIN country ON company.country_id = country.id WHERE company.country_id = ? GROUP BY company.id",
+      [id],
+    );
+    return rows as Company[];
+  }
+
   async update(company: Company) {
     const [result] = await databaseClient.query<Result>(
       "update company set name = ?, description = ?,address = ?, logo = ?",

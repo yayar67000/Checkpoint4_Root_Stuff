@@ -20,6 +20,7 @@ router.post("/api/items", itemActions.add);
 /* *****************COMPANIES************************** */
 router.get("/api/companies", companyActions.browse);
 router.get("/api/companies/:id", companyActions.read);
+router.get("/api/companies/countries/:id", companyActions.browseByCountry);
 router.post("/api/companies", companyActions.add);
 router.put("/api/companies/:id", companyActions.edit);
 router.delete("/api/companies/:id", companyActions.destroy);
@@ -27,6 +28,7 @@ router.delete("/api/companies/:id", companyActions.destroy);
 /* *****************VAN************************** */
 router.get("/api/vans", vanActions.browse);
 router.get("/api/vans/:id", vanActions.read);
+router.get("/api/vans/companies/:id", vanActions.browseBYCompany);
 router.post("/api/vans", vanActions.add);
 router.put("/api/vans/:id", vanActions.edit);
 router.delete("/api/vans/:id", vanActions.destroy);
