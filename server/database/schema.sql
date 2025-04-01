@@ -34,6 +34,14 @@ CREATE TABLE van (
   FOREIGN KEY (company_id) REFERENCES company(id) 
 );
 
+CREATE TABLE roadies (
+  id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  firstname VARCHAR(100) NOT NULL,
+  lastname VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  hashed_password VARCHAR(200) NOT NULL
+);
+
 -- Insertion des continents
 INSERT INTO continent (name, picture) VALUES
 ("Europe", "images/europe.jpg"),
@@ -95,3 +103,8 @@ INSERT INTO van (name, number_plate, picture, fuel, lbs, brand, company_id) VALU
 ("DesertVan Elite", "AZ-234-PQ", "vans/desert_van_elite.jpg", "Diesel", "3500", "Desert Motors", 8),
 ("UrbanRide V1", "EF-567-TY", "vans/urban_ride_v1.jpg", "Electric", "1300", "UrbanDrive", 9),
 ("HeavyHaul 700", "PR-876-LK", "vans/heavyhaul_700.jpg", "Diesel", "4500", "NovaIndustries", 10);
+
+INSERT INTO roadies (firstname, lastname, email, hashed_password) 
+VALUES 
+('Alice', 'Dupont', 'alice.dupont@example.com', "$argon2id$v=19$m=19456,t=1,p=1$Y2FtZW1iZXJ0$mPxQmyFeEMOsQXyRzxYhww"),
+('Bob', 'Martin', 'bob.martin@example.com', '$argon2id$v=19$m=19456,t=1,p=1$bXVuc3RlcjY3MDAw$rMSgiRghvwVDUIEUUub2Eg');
