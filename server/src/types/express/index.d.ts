@@ -16,6 +16,20 @@ declare global {
       country: {
         id: number;
       };
+      user: {
+        id: number;
+        email: string;
+        password: string;
+        role: string;
+      };
+      auth: {
+        email: string;
+        password: string;
+        isAdmin: boolean;
+      };
+      roadie: {
+        id: number;
+      };
     }
   }
 }

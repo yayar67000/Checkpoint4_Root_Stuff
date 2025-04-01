@@ -7,15 +7,18 @@ const router = express.Router();
 /* ************************************************************************* */
 
 // Define item-related routes
+import authActions from "./middlewares/authActions";
 import companyActions from "./modules/company/companyActions";
 import continentActions from "./modules/continent/continentActions";
 import countryActions from "./modules/country/countryActions";
-import itemActions from "./modules/item/itemActions";
+import roadiesActions from "./modules/roadies/roadiesActions";
 import vanActions from "./modules/van/vanActions";
 
-router.get("/api/items", itemActions.browse);
-router.get("/api/items/:id", itemActions.read);
-router.post("/api/items", itemActions.add);
+/* *****************LOGIN/LOGOUT************************** */
+
+router.post("/api/login", authActions.login);
+
+router.get("/api/logout", authActions.logout);
 
 /* *****************COMPANIES************************** */
 router.get("/api/companies", companyActions.browse);
@@ -48,5 +51,13 @@ router.get("/api/continents/:id", continentActions.read);
 router.post("/api/continents", continentActions.add);
 router.put("/api/continents/:id", continentActions.edit);
 router.delete("/api/continents/:id", continentActions.destroy);
+
+/* *****************ROADIES************************ */
+
+router.get("/api/roadies", roadiesActions.browse);
+router.get("/api/roadies/:id", roadiesActions.read);
+router.post("/api/roadies", authActions.hashPassword, roadiesActions.add);
+router.put("/api/roadies/:id", roadiesActions.edit);
+router.delete("/api/roadies/:id", roadiesActions.destroy);
 
 export default router;
