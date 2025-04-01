@@ -11,6 +11,7 @@
   --primary: black;
   --secondary: rgb(13, 211, 13);
   --tertiary: #d9e0d1;
+  --brown: rgb(139, 35, 35);
   --light: #fff;
   --message-error: red;
 }
@@ -28,6 +29,7 @@ body {
 
 main {
   display: flex;
+  flex: 1;
 }
 
 .messageError {
