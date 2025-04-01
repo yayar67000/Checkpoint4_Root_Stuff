@@ -57,7 +57,7 @@ router.delete("/api/continents/:id", continentActions.destroy);
 router.get("/api/roadies", roadiesActions.browse);
 router.get("/api/roadies/:id", roadiesActions.read);
 router.post("/api/roadies", authActions.hashPassword, roadiesActions.add);
-router.put("/api/roadies/:id", roadiesActions.edit);
+router.put("/api/roadies/:id", authActions.hashPassword, roadiesActions.edit);
 router.delete("/api/roadies/:id", roadiesActions.destroy);
 
 export default router;
