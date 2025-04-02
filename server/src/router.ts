@@ -22,8 +22,8 @@ router.get("/api/logout", authActions.logout);
 
 /* *****************COMPANIES************************** */
 router.get("/api/companies", companyActions.browse);
+router.get("/api/companies/country/:id", companyActions.browseByCountry);
 router.get("/api/companies/:id", companyActions.read);
-router.get("/api/companies/countries/:id", companyActions.browseByCountry);
 router.post("/api/companies", companyActions.add);
 router.put("/api/companies/:id", companyActions.edit);
 router.delete("/api/companies/:id", companyActions.destroy);

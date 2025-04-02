@@ -10,6 +10,8 @@ import App from "./App";
 
 // Import pages
 import Companies from "./pages/Companies/Companies";
+import CompaniesByCountry from "./pages/CompaniesByCountry/CompaniesByCountry";
+import CompanyDetails from "./pages/CompanyDetails/CompanyDetails";
 import Continents from "./pages/Continents/Continents";
 import Countries from "./pages/Countries/Countries";
 import CountriesByContinent from "./pages/CountriesByContinent/CountriesByContinent";
@@ -19,7 +21,11 @@ import Vans from "./pages/Vans/Vans";
 
 // Import requests
 
-import { getAllContinents, getCountriesByContinent } from "./services/requests";
+import {
+  getAllContinents,
+  getCompaniesByCountry,
+  getCountriesByContinent,
+} from "./services/requests";
 
 /* ************************************************************************* */
 
@@ -37,6 +43,15 @@ const router = createBrowserRouter([
       {
         path: "/companies",
         element: <Companies />,
+      },
+      {
+        path: "/companyDetails/:id",
+        element: <CompanyDetails />,
+      },
+      {
+        path: "/companies/country/:countryId",
+        element: <CompaniesByCountry />,
+        loader: ({ params }) => getCompaniesByCountry(params.countryId),
       },
       {
         path: "/continents",
