@@ -16,6 +16,13 @@ const getCountriesByContinent = (continentId: string | undefined) => {
     .catch((error) => console.error(error));
 };
 
+const getAllCompanies = () => {
+  return axios
+    .get(`${import.meta.env.VITE_API_URL}/api/companies`)
+    .then((response) => response.data)
+    .catch((error) => console.error(error));
+};
+
 const getCompaniesByCountry = (id: string | undefined) => {
   return axios
     .get(`${import.meta.env.VITE_API_URL}/api/companies/country/${id}`)
@@ -37,6 +44,13 @@ const getVansbyCompany = (id: string | undefined) => {
     .catch((error) => console.error(error));
 };
 
+const getAllVans = () => {
+  return axios
+    .get(`${import.meta.env.VITE_API_URL}/api/vans`)
+    .then((response) => response.data)
+    .catch((error) => console.error(error));
+};
+
 const getDetailsVan = (id: string | undefined) => {
   return axios
     .get(`${import.meta.env.VITE_API_URL}/api/vans/${id}`)
@@ -45,10 +59,12 @@ const getDetailsVan = (id: string | undefined) => {
 };
 
 export {
+  getAllVans,
   getCountriesByContinent,
   getAllContinents,
   getCompaniesByCountry,
   getCompaniesDetails,
   getVansbyCompany,
   getDetailsVan,
+  getAllCompanies,
 };

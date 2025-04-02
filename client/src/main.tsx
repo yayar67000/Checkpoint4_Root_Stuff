@@ -17,12 +17,15 @@ import Countries from "./pages/Countries/Countries";
 import CountriesByContinent from "./pages/CountriesByContinent/CountriesByContinent";
 import ErrorPage from "./pages/Error/ErrorPage";
 import Home from "./pages/Home/Home";
+import Vans from "./pages/Vans/Vans";
 import VansDetails from "./pages/VansDetails/VansDetails";
 
 // Import requests
 
 import {
+  getAllCompanies,
   getAllContinents,
+  getAllVans,
   getCompaniesByCountry,
   getCompaniesDetails,
   getCountriesByContinent,
@@ -46,6 +49,7 @@ const router = createBrowserRouter([
       {
         path: "/companies",
         element: <Companies />,
+        loader: getAllCompanies,
       },
       {
         path: "/companyDetails/:id",
@@ -75,6 +79,11 @@ const router = createBrowserRouter([
         path: "/countries/continent/:continentId",
         element: <CountriesByContinent />,
         loader: ({ params }) => getCountriesByContinent(params.continentId),
+      },
+      {
+        path: "/vans",
+        element: <Vans />,
+        loader: getAllVans,
       },
       {
         path: "/vanDetails/:id",
