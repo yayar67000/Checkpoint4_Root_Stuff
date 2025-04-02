@@ -8,14 +8,17 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // Import the main app component
 import App from "./App";
 
-// Import additional components for new routes
-// Try creating these components in the "pages" folder
+// Import pages
 import Companies from "./pages/Companies/Companies";
 import Continents from "./pages/Continents/Continents";
 import Countries from "./pages/Countries/Countries";
 import ErrorPage from "./pages/Error/ErrorPage";
 import Home from "./pages/Home/Home";
 import Vans from "./pages/Vans/Vans";
+
+// Import requests
+
+import { getAllContinents } from "./services/requests";
 
 /* ************************************************************************* */
 
@@ -31,19 +34,21 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "companies",
+        path: "/companies",
         element: <Companies />,
       },
       {
-        path: "/Continents",
+        path: "/continents",
         element: <Continents />,
+        loader: getAllContinents,
       },
+
       {
-        path: "/Countries",
+        path: "/countries/:id",
         element: <Countries />,
       },
       {
-        path: "/Vans",
+        path: "/vans",
         element: <Vans />,
       },
     ],

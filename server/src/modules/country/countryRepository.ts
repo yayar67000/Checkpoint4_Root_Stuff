@@ -25,6 +25,14 @@ class countryRepository {
     return rows[0] as Country;
   }
 
+  async readCountriesBYContinent(id: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT country.* FROM country JOIN continent ON country.continent_id = continent.id WHERE country.continent_id = ? GROUP BY country.id",
+      [id],
+    );
+    return rows as Country[];
+  }
+
   async readAll() {
     const [rows] = await databaseClient.query<Rows>("select * from country");
     return rows as Country[];

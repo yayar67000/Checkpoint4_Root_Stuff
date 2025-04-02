@@ -10,6 +10,17 @@ const browse: RequestHandler = async (req, res, next) => {
   }
 };
 
+const browseByContinent: RequestHandler = async (req, res, next) => {
+  try {
+    const continentId = Number(req.params.id);
+    const countries =
+      await countryRepository.readCountriesBYContinent(continentId);
+    res.json(countries);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const read: RequestHandler = async (req, res, next) => {
   try {
     const countryId = Number(req.params.id);
@@ -68,4 +79,4 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, edit, add, destroy };
+export default { browse, browseByContinent, read, edit, add, destroy };
