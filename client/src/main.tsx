@@ -25,6 +25,7 @@ import VansDetails from "./pages/VansDetails/VansDetails";
 import {
   getAllCompanies,
   getAllContinents,
+  getAllCountries,
   getAllVans,
   getCompaniesByCountry,
   getCompaniesDetails,
@@ -45,6 +46,13 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: async () => {
+          const continents = await getAllContinents();
+          const countries = await getAllCountries();
+          const companies = await getAllCompanies();
+          const vans = await getAllVans();
+          return { continents, countries, companies, vans };
+        },
       },
       {
         path: "/companies",

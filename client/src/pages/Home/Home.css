@@ -1,0 +1,36 @@
+.all_home_page {
+  display: flex;
+  flex-direction: column;
+  & .cards_scroll {
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    overflow: hidden;
+    gap: 2rem;
+    margin: 0 0 1rem 1rem;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+
+    & .cards_scroll::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    & .cards_scroll::-webkit-scrollbar-track {
+      background: var(--light);
+    }
+
+    & .cards_scroll::-webkit-scrollbar-thumb {
+      background: var(--secundary);
+      border-radius: 4px;
+    }
+  }
+  & h1 {
+    margin: 3rem 2rem 3rem 2rem;
+    font-size: 1.5rem;
+    color: var(--brown);
+    font-weight: bold;
+  }
+  & .div_titles {
+    margin: 0 0 0 1rem;
+  }
+}

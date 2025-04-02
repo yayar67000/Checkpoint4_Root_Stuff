@@ -7,6 +7,13 @@ const getAllContinents = () => {
     .catch((error) => console.error(error));
 };
 
+const getAllCountries = () => {
+  return axios
+    .get(`${import.meta.env.VITE_API_URL}/api/countries`)
+    .then((response) => response.data)
+    .catch((error) => console.error(error));
+};
+
 const getCountriesByContinent = (continentId: string | undefined) => {
   return axios
     .get(
@@ -59,6 +66,7 @@ const getDetailsVan = (id: string | undefined) => {
 };
 
 export {
+  getAllCountries,
   getAllVans,
   getCountriesByContinent,
   getAllContinents,
