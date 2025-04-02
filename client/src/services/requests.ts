@@ -16,4 +16,11 @@ const getCountriesByContinent = (continentId: string | undefined) => {
     .catch((error) => console.error(error));
 };
 
-export { getCountriesByContinent, getAllContinents };
+const getCompaniesByCountry = (id: string | undefined) => {
+  return axios
+    .get(`${import.meta.env.VITE_API_URL}/api/companies/country/${id}`)
+    .then((response) => response.data)
+    .catch((error) => console.error(error));
+};
+
+export { getCountriesByContinent, getAllContinents, getCompaniesByCountry };

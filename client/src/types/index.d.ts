@@ -18,3 +18,16 @@ interface CountriesData {
 interface CountriesDataProps {
   country: CountriesData;
 }
+
+interface CompaniesByCountryData {
+  id: number;
+  name: string;
+  description: string;
+  address: string;
+  logo: string;
+  country_id: number;
+}
+
+interface CompaniesByCountryDataProps {
+  company: CompaniesByCountryData;
+}
