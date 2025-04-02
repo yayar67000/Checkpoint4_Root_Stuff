@@ -12,13 +12,14 @@ import App from "./App";
 import Companies from "./pages/Companies/Companies";
 import Continents from "./pages/Continents/Continents";
 import Countries from "./pages/Countries/Countries";
+import CountriesByContinent from "./pages/CountriesByContinent/CountriesByContinent";
 import ErrorPage from "./pages/Error/ErrorPage";
 import Home from "./pages/Home/Home";
 import Vans from "./pages/Vans/Vans";
 
 // Import requests
 
-import { getAllContinents } from "./services/requests";
+import { getAllContinents, getCountriesByContinent } from "./services/requests";
 
 /* ************************************************************************* */
 
@@ -44,8 +45,13 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "/countries/:id",
+        path: "/countries",
         element: <Countries />,
+      },
+      {
+        path: "/countries/continent/:continentId",
+        element: <CountriesByContinent />,
+        loader: ({ params }) => getCountriesByContinent(params.continentId),
       },
       {
         path: "/vans",

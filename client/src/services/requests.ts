@@ -7,9 +7,11 @@ const getAllContinents = () => {
     .catch((error) => console.error(error));
 };
 
-const getCountriesByContinent = () => {
+const getCountriesByContinent = (continentId: string | undefined) => {
   return axios
-    .get(`${import.meta.env.VITE_API_URL}/api/countries/continent/:id`)
+    .get(
+      `${import.meta.env.VITE_API_URL}/api/countries/continent/${continentId}`,
+    )
     .then((response) => response.data)
     .catch((error) => console.error(error));
 };

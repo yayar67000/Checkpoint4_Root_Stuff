@@ -1,4 +1,4 @@
-.continent_card {
+.country_card {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,11 +38,11 @@
   }
 }
 
-.continent_card:hover {
+.country_card:hover {
   border: 1px solid var(--secondary);
   transform: scale(1.05);
 }
 
-.continent_card:active {
+.country_card:active {
   transform: scale(0.95) rotateZ(1.7deg);
 }
