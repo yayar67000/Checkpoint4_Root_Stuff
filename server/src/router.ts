@@ -39,6 +39,7 @@ router.delete("/api/vans/:id", vanActions.destroy);
 /* *****************COUNTRIES************************** */
 
 router.get("/api/countries", countryActions.browse);
+router.get("/api/countries/continent/:id", countryActions.browseByContinent);
 router.get("/api/countries/:id", countryActions.read);
 router.post("/api/countries", countryActions.add);
 router.put("/api/countries/:id", countryActions.edit);

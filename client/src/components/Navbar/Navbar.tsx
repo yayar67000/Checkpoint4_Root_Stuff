@@ -25,7 +25,7 @@ export default function Navbar() {
     },
     {
       name: "Territoires à explorer",
-      path: "/countries",
+      path: "/continents",
     },
   ];
 
