@@ -27,6 +27,10 @@ export default function Navbar() {
       name: "Territoires à explorer",
       path: "/continents",
     },
+    {
+      name: "Mon RoadBook",
+      path: "/roadbook",
+    },
   ];
 
   return (
