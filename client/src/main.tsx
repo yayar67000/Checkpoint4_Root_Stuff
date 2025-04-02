@@ -17,14 +17,17 @@ import Countries from "./pages/Countries/Countries";
 import CountriesByContinent from "./pages/CountriesByContinent/CountriesByContinent";
 import ErrorPage from "./pages/Error/ErrorPage";
 import Home from "./pages/Home/Home";
-import Vans from "./pages/Vans/Vans";
+import VansDetails from "./pages/VansDetails/VansDetails";
 
 // Import requests
 
 import {
   getAllContinents,
   getCompaniesByCountry,
+  getCompaniesDetails,
   getCountriesByContinent,
+  getDetailsVan,
+  getVansbyCompany,
 } from "./services/requests";
 
 /* ************************************************************************* */
@@ -47,6 +50,11 @@ const router = createBrowserRouter([
       {
         path: "/companyDetails/:id",
         element: <CompanyDetails />,
+        loader: async ({ params }) => {
+          const company = await getCompaniesDetails(params.id);
+          const vans = await getVansbyCompany(params.id);
+          return { company, vans };
+        },
       },
       {
         path: "/companies/country/:countryId",
@@ -69,8 +77,9 @@ const router = createBrowserRouter([
         loader: ({ params }) => getCountriesByContinent(params.continentId),
       },
       {
-        path: "/vans",
-        element: <Vans />,
+        path: "/vanDetails/:id",
+        element: <VansDetails />,
+        loader: ({ params }) => getDetailsVan(params.id),
       },
     ],
   },
