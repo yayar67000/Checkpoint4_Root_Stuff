@@ -1,24 +1,15 @@
-.all_companydetails_page {
+.all_vansdetails_page {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin: 3rem 1rem 3rem 1rem;
   gap: 2rem;
-  & .infos_company {
+  & .infos_vans {
     display: flex;
     flex-direction: column;
     padding: 2rem;
     gap: 2rem;
     border: 2px solid var(--brown);
     border-radius: 8px;
-  }
-  & .vanbycompany_cards {
-    display: flex;
-    flex-direction: column;
-  }
-
-  & .van_each_cards {
-    display: flex;
-    flex-direction: row;
   }
 }

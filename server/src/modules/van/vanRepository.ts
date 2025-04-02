@@ -44,7 +44,7 @@ class vanRepository {
 
   async readAllByCompany(id: number) {
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT van.*, company.name AS company_name, company.description AS company_description, company.address AS company_address, company.logo AS company_logo FROM van JOIN company ON van.company_id = company.id WHERE van.company_id = ? GROUP BY van.id",
+      "SELECT van.* FROM van JOIN company ON van.company_id = company.id WHERE van.company_id = ? GROUP BY van.id",
       [id],
     );
     return rows as Van[];

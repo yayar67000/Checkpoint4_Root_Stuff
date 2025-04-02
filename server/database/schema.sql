@@ -29,7 +29,7 @@ CREATE TABLE van (
   picture VARCHAR(100) NOT NULL,
   fuel VARCHAR(100) NOT NULL,
   lbs TEXT NOT NULL,  
-  brand VARCHAR(100) NOT NULL,
+  brand TEXT NOT NULL,
   company_id INT UNSIGNED NOT NULL,  
   FOREIGN KEY (company_id) REFERENCES company(id) 
 );
@@ -93,16 +93,16 @@ INSERT INTO company (name, description, address, logo, country_id) VALUES
 
 -- Insertion des véhicules
 INSERT INTO van (name, number_plate, picture, fuel, lbs, brand, company_id) VALUES
-("VanTech 2000", "AB-123-CD", "vans/van_tech_2000.jpg", "Diesel", "2500", "TechAuto", 1),
-("AutoVan X1", "XY-456-ZT", "vans/auto_van_x1.jpg", "Electric", "1500", "AutoGlobal", 2),
-("AsiaVan Express", "JK-789-LM", "vans/asia_van_express.jpg", "Gasoline", "1800", "AsiaTech", 3),
-("AfricaVan Pro", "FG-123-QW", "vans/africa_van_pro.jpg", "Diesel", "2200", "Africa Industries", 4),
-("EcoVan 300", "GH-321-JK", "vans/eco_van_300.jpg", "Electric", "1200", "GreenTech Solutions", 5),
-("LuxVan 5000", "LM-555-VX", "vans/lux_van_5000.jpg", "Hybrid", "2800", "EuroCars Manufacturing", 6),
-("SmartVan X2", "RT-789-XY", "vans/smart_van_x2.jpg", "Electric", "1400", "TechMovers", 7),
-("DesertVan Elite", "AZ-234-PQ", "vans/desert_van_elite.jpg", "Diesel", "3500", "Desert Motors", 8),
-("UrbanRide V1", "EF-567-TY", "vans/urban_ride_v1.jpg", "Electric", "1300", "UrbanDrive", 9),
-("HeavyHaul 700", "PR-876-LK", "vans/heavyhaul_700.jpg", "Diesel", "4500", "NovaIndustries", 10);
+("VanTech 2000", "AB-123-CD", "https://placehold.co/600x400/3498db/ffffff?text=VanTech+2000", "Diesel", "2500", "TechAuto", 1),
+("AutoVan X1", "XY-456-ZT", "https://placehold.co/600x400/27ae60/ffffff?text=AutoVan+X1", "Electric", "1500", "AutoGlobal", 2),
+("AsiaVan Express", "JK-789-LM", "https://placehold.co/600x400/e74c3c/ffffff?text=AsiaVan+Express", "Gasoline", "1800", "AsiaTech", 3),
+("AfricaVan Pro", "FG-123-QW", "https://placehold.co/600x400/f39c12/ffffff?text=AfricaVan+Pro", "Diesel", "2200", "Africa Industries", 4),
+("EcoVan 300", "GH-321-JK", "https://placehold.co/600x400/2ecc71/ffffff?text=EcoVan+300", "Electric", "1200", "GreenTech Solutions", 5),
+("LuxVan 5000", "LM-555-VX", "https://placehold.co/600x400/9b59b6/ffffff?text=LuxVan+5000", "Hybrid", "2800", "EuroCars Manufacturing", 6),
+("SmartVan X2", "RT-789-XY", "https://placehold.co/600x400/1abc9c/ffffff?text=SmartVan+X2", "Electric", "1400", "TechMovers", 7),
+("DesertVan Elite", "AZ-234-PQ", "https://placehold.co/600x400/d35400/ffffff?text=DesertVan+Elite", "Diesel", "3500", "Desert Motors", 8),
+("UrbanRide V1", "EF-567-TY", "https://placehold.co/600x400/3498db/ffffff?text=UrbanRide+V1", "Electric", "1300", "UrbanDrive", 9),
+("HeavyHaul 700", "PR-876-LK", "https://placehold.co/600x400/7f8c8d/ffffff?text=HeavyHaul+700", "Diesel", "4500", "NovaIndustries", 10);
 
 INSERT INTO roadies (firstname, lastname, email, hashed_password) 
 VALUES 
