@@ -8,6 +8,8 @@ const router = express.Router();
 
 // Define item-related routes
 import authActions from "./middlewares/authActions";
+import formRoadies from "./middlewares/formRoadies";
+import formVan from "./middlewares/formVan";
 import companyActions from "./modules/company/companyActions";
 import continentActions from "./modules/continent/continentActions";
 import countryActions from "./modules/country/countryActions";
@@ -22,8 +24,8 @@ router.get("/api/logout", authActions.logout);
 
 /* *****************COMPANIES************************** */
 router.get("/api/companies", companyActions.browse);
+router.get("/api/companies/country/:id", companyActions.browseByCountry);
 router.get("/api/companies/:id", companyActions.read);
-router.get("/api/companies/countries/:id", companyActions.browseByCountry);
 router.post("/api/companies", companyActions.add);
 router.put("/api/companies/:id", companyActions.edit);
 router.delete("/api/companies/:id", companyActions.destroy);
@@ -32,7 +34,7 @@ router.delete("/api/companies/:id", companyActions.destroy);
 router.get("/api/vans", vanActions.browse);
 router.get("/api/vans/:id", vanActions.read);
 router.get("/api/vans/companies/:id", vanActions.browseBYCompany);
-router.post("/api/vans", vanActions.add);
+router.post("/api/vans", authActions.verify, formVan.validate, vanActions.add);
 router.put("/api/vans/:id", vanActions.edit);
 router.delete("/api/vans/:id", vanActions.destroy);
 
@@ -56,9 +58,24 @@ router.delete("/api/continents/:id", continentActions.destroy);
 /* *****************ROADIES************************ */
 
 router.get("/api/roadies", roadiesActions.browse);
+router.get("/api/authroadie", authActions.verify, roadiesActions.read);
 router.get("/api/roadies/:id", roadiesActions.read);
-router.post("/api/roadies", authActions.hashPassword, roadiesActions.add);
-router.put("/api/roadies/:id", authActions.hashPassword, roadiesActions.edit);
+router.get(
+  "/api/roadie/general-details/:id",
+  roadiesActions.readGeneralDetails,
+);
+router.post(
+  "/api/roadies",
+  formRoadies.validate,
+  authActions.hashPassword,
+  roadiesActions.add,
+);
+router.put(
+  "/api/roadies",
+  authActions.verify,
+  formRoadies.validateUpdate,
+  roadiesActions.edit,
+);
 router.delete("/api/roadies/:id", roadiesActions.destroy);
 
 export default router;

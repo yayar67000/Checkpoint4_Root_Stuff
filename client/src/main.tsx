@@ -8,18 +8,36 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // Import the main app component
 import App from "./App";
 
+import { AuthProvider } from "./services/AuthContext";
+
 // Import pages
 import Companies from "./pages/Companies/Companies";
+import CompaniesByCountry from "./pages/CompaniesByCountry/CompaniesByCountry";
+import CompanyDetails from "./pages/CompanyDetails/CompanyDetails";
 import Continents from "./pages/Continents/Continents";
 import Countries from "./pages/Countries/Countries";
 import CountriesByContinent from "./pages/CountriesByContinent/CountriesByContinent";
 import ErrorPage from "./pages/Error/ErrorPage";
 import Home from "./pages/Home/Home";
+import RoadieInformation from "./pages/RoadieInformation/RoadieInformation";
 import Vans from "./pages/Vans/Vans";
+import VansDetails from "./pages/VansDetails/VansDetails";
 
 // Import requests
 
-import { getAllContinents, getCountriesByContinent } from "./services/requests";
+import {
+  getAllCompanies,
+  getAllContinents,
+  getAllCountries,
+  getAllVans,
+  getCompaniesByCountry,
+  getCompaniesDetails,
+  getCountriesByContinent,
+  getDetailsVan,
+  getGeneralRoadiesDetails,
+  getRoadieAuth,
+  getVansbyCompany,
+} from "./services/requests";
 
 /* ************************************************************************* */
 
@@ -33,10 +51,32 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: async () => {
+          const continents = await getAllContinents();
+          const countries = await getAllCountries();
+          const companies = await getAllCompanies();
+          const vans = await getAllVans();
+          return { continents, countries, companies, vans };
+        },
       },
       {
         path: "/companies",
         element: <Companies />,
+        loader: getAllCompanies,
+      },
+      {
+        path: "/companyDetails/:id",
+        element: <CompanyDetails />,
+        loader: async ({ params }) => {
+          const company = await getCompaniesDetails(params.id);
+          const vans = await getVansbyCompany(params.id);
+          return { company, vans };
+        },
+      },
+      {
+        path: "/companies/country/:countryId",
+        element: <CompaniesByCountry />,
+        loader: ({ params }) => getCompaniesByCountry(params.countryId),
       },
       {
         path: "/continents",
@@ -54,8 +94,30 @@ const router = createBrowserRouter([
         loader: ({ params }) => getCountriesByContinent(params.continentId),
       },
       {
+        path: "/roadies/:id",
+        element: <RoadieInformation />,
+        loader: async ({ params }) => {
+          const company = await getGeneralRoadiesDetails(params.id);
+          return company;
+        },
+      },
+      {
         path: "/vans",
         element: <Vans />,
+        loader: getAllVans,
+      },
+      {
+        path: "/vanDetails/:id",
+        element: <VansDetails />,
+        loader: ({ params }) => getDetailsVan(params.id),
+      },
+      {
+        path: "/roadies/information",
+        element: <RoadieInformation />,
+        loader: async () => {
+          const roadie = await getRoadieAuth();
+          return roadie || null;
+        },
       },
     ],
   },
@@ -73,7 +135,9 @@ if (rootElement == null) {
 // Render the app inside the root element
 createRoot(rootElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 );
 

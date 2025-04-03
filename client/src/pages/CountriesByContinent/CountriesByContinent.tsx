@@ -6,14 +6,11 @@ export default function CountriesByContinent() {
   const countriesByContinent = useLoaderData() as CountriesData[];
   return (
     <main className="all_country_page">
-      <h1>Continents</h1>
+      <h1>Pays</h1>
       <div>
         {countriesByContinent.length > 0
           ? countriesByContinent.map((country) => (
-              <Link
-                key={country.id}
-                to={`/countries/continent${country.continent_id}`}
-              >
+              <Link key={country.id} to={`/companies/country/${country.id}`}>
                 <CountryCard key={country.id} country={country} />
               </Link>
             ))

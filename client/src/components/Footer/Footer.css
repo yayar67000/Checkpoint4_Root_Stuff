@@ -4,4 +4,8 @@ footer {
   align-items: center;
   padding: 2rem;
   background-color: var(--brown);
+  & h1 {
+    font-size: 1rem;
+    color: var(--light);
+  }
 }
