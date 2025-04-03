@@ -1,6 +1,6 @@
 import VanCard from "../../components/VanCard/VanCard";
 import "./CompanyDetails.css";
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 
 export default function CompanyDetails() {
   const { company, vans = [] } = useLoaderData() as {
@@ -24,15 +24,7 @@ export default function CompanyDetails() {
       <article className="vanbycompany_cards">
         <h1>Vans disponibles {vans.length}</h1>
         {vans.length > 0
-          ? vans.map((van) => (
-              <Link
-                key={van.id}
-                to={`/vanDetails/${van.id}`}
-                className="van_each_cards"
-              >
-                <VanCard key={van.id} van={van} />
-              </Link>
-            ))
+          ? vans.map((van) => <VanCard key={van.id} van={van} />)
           : null}
       </article>
     </main>
