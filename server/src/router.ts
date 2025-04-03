@@ -57,7 +57,12 @@ router.delete("/api/continents/:id", continentActions.destroy);
 /* *****************ROADIES************************ */
 
 router.get("/api/roadies", roadiesActions.browse);
+router.get("/api/authroadie", authActions.verify, roadiesActions.read);
 router.get("/api/roadies/:id", roadiesActions.read);
+router.get(
+  "/api/roadie/general-details/:id",
+  roadiesActions.readGeneralDetails,
+);
 router.post(
   "/api/roadies",
   formRoadies.validate,
@@ -65,9 +70,9 @@ router.post(
   roadiesActions.add,
 );
 router.put(
-  "/api/roadies/:id",
-  formRoadies.validate,
-  authActions.hashPassword,
+  "/api/roadies",
+  authActions.verify,
+  formRoadies.validateUpdate,
   roadiesActions.edit,
 );
 router.delete("/api/roadies/:id", roadiesActions.destroy);

@@ -19,6 +19,7 @@ import Countries from "./pages/Countries/Countries";
 import CountriesByContinent from "./pages/CountriesByContinent/CountriesByContinent";
 import ErrorPage from "./pages/Error/ErrorPage";
 import Home from "./pages/Home/Home";
+import RoadieInformation from "./pages/RoadieInformation/RoadieInformation";
 import Vans from "./pages/Vans/Vans";
 import VansDetails from "./pages/VansDetails/VansDetails";
 
@@ -33,6 +34,8 @@ import {
   getCompaniesDetails,
   getCountriesByContinent,
   getDetailsVan,
+  getGeneralRoadiesDetails,
+  getRoadieAuth,
   getVansbyCompany,
 } from "./services/requests";
 
@@ -91,6 +94,14 @@ const router = createBrowserRouter([
         loader: ({ params }) => getCountriesByContinent(params.continentId),
       },
       {
+        path: "/roadies/:id",
+        element: <RoadieInformation />,
+        loader: async ({ params }) => {
+          const company = await getGeneralRoadiesDetails(params.id);
+          return company;
+        },
+      },
+      {
         path: "/vans",
         element: <Vans />,
         loader: getAllVans,
@@ -99,6 +110,14 @@ const router = createBrowserRouter([
         path: "/vanDetails/:id",
         element: <VansDetails />,
         loader: ({ params }) => getDetailsVan(params.id),
+      },
+      {
+        path: "/roadies/information",
+        element: <RoadieInformation />,
+        loader: async () => {
+          const roadie = await getRoadieAuth();
+          return roadie || null;
+        },
       },
     ],
   },

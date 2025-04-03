@@ -65,6 +65,22 @@ const getDetailsVan = (id: string | undefined) => {
     .catch((error) => console.error(error));
 };
 
+const getRoadieAuth = () => {
+  return axios
+    .get(`${import.meta.env.VITE_API_URL}/api/authroadie`, {
+      withCredentials: true,
+    })
+    .then((response) => response.data)
+    .catch((error) => console.error(error));
+};
+
+const getGeneralRoadiesDetails = (id: string | undefined) => {
+  return axios
+    .get(`${import.meta.env.VITE_API_URL}/api/roadie/general-details/${id}`)
+    .then((response) => response.data)
+    .catch((error) => console.error(error));
+};
+
 export {
   getAllCountries,
   getAllVans,
@@ -75,4 +91,6 @@ export {
   getVansbyCompany,
   getDetailsVan,
   getAllCompanies,
+  getRoadieAuth,
+  getGeneralRoadiesDetails,
 };

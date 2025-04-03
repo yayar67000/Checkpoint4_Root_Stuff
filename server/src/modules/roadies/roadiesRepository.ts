@@ -10,6 +10,13 @@ type Roadies = {
   hashed_password: string;
 };
 
+type editRoadie = {
+  id: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+};
+
 class roadiesRepository {
   async create(roadies: Omit<Roadies, "id">) {
     const [result] = await databaseClient.query<Result>(
@@ -32,6 +39,14 @@ class roadiesRepository {
     return rows[0] as Roadies;
   }
 
+  async readGeneralDetails(id: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      "select roadies.firstname, roadies.lastname, roadies.email from roadies where id = ?",
+      [id],
+    );
+    return rows[0] as Roadies;
+  }
+
   async readByEmailWithPassword(email: string) {
     const [rows] = await databaseClient.query<Rows>(
       "select * from roadies where email = ?",
@@ -47,18 +62,20 @@ class roadiesRepository {
     return rows as Roadies[];
   }
 
-  async update(roadies: Roadies) {
+  async update(editRoadie: editRoadie) {
+    if (!editRoadie.id || Number.isNaN(Number(editRoadie.id))) {
+      throw new Error("Invalid roadie ID");
+    }
+
     const [result] = await databaseClient.query<Result>(
-      "update roadies set firstname = ?, lastname = ?, email = ?, hashed_password = ? where id = ?",
+      "update roadies set firstname = ?, lastname = ?, email = ? where id = ?",
       [
-        roadies.firstname,
-        roadies.lastname,
-        roadies.email,
-        roadies.hashed_password,
-        roadies.id,
+        editRoadie.firstname,
+        editRoadie.lastname,
+        editRoadie.email,
+        editRoadie.id,
       ],
     );
-
     return result.affectedRows;
   }
 
