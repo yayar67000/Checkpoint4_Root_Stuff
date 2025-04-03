@@ -48,6 +48,11 @@ h3 {
   font-optical-sizing: auto;
 }
 
+label {
+  color: var(--brown);
+  font-weight: bold;
+}
+
 *:focus {
   outline: none;
 }
@@ -85,4 +90,39 @@ h3 {
 
 .card:active {
   transform: scale(0.95) rotateZ(1.7deg);
+}
+
+.light-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light);
+  color: var(--secundary);
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border: solid var(--tertiary) 1px;
+  border-radius: 5px;
+}
+
+.colored-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--light);
+  background-color: var(--brown);
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.cancel-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light);
+  color: var(--primary);
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border-radius: 5px;
 }

@@ -1,11 +1,17 @@
 .all_company_page {
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* Assure que les éléments sont espacés */
   align-items: center;
-  & h1 {
-    margin-top: 2rem;
-  }
-  & .div {
-    margin-bottom: 1rem;
-  }
+  min-height: 100vh; /* La page occupe toute la hauteur de la fenêtre */
+  box-sizing: border-box; /* Inclut les bordures et paddings dans la hauteur */
+  padding: 1rem; /* Optionnel : ajoute un peu de padding */
+}
+
+.all_company_page h1 {
+  margin-top: 2rem;
+}
+
+.all_company_page .div {
+  margin-bottom: 1rem;
 }
