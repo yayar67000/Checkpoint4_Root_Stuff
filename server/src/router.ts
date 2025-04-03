@@ -9,6 +9,7 @@ const router = express.Router();
 // Define item-related routes
 import authActions from "./middlewares/authActions";
 import formRoadies from "./middlewares/formRoadies";
+import formVan from "./middlewares/formVan";
 import companyActions from "./modules/company/companyActions";
 import continentActions from "./modules/continent/continentActions";
 import countryActions from "./modules/country/countryActions";
@@ -33,7 +34,7 @@ router.delete("/api/companies/:id", companyActions.destroy);
 router.get("/api/vans", vanActions.browse);
 router.get("/api/vans/:id", vanActions.read);
 router.get("/api/vans/companies/:id", vanActions.browseBYCompany);
-router.post("/api/vans", vanActions.add);
+router.post("/api/vans", authActions.verify, formVan.validate, vanActions.add);
 router.put("/api/vans/:id", vanActions.edit);
 router.delete("/api/vans/:id", vanActions.destroy);
 

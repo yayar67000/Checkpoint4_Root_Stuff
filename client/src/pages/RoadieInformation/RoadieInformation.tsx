@@ -1,20 +1,41 @@
 import "./RoadieInformation.css";
 import axios from "axios";
 import { useState } from "react";
+import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { useRevalidator } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
+import VanCard from "../../components/VanCard/VanCard";
 
 export default function RoadieInformation() {
   const { revalidate } = useRevalidator();
   const location = useLocation();
-  const roadies = useLoaderData() as RoadieData;
+  const roadie = useLoaderData() as RoadieData;
+  const [vans, setVans] = useState<VansData[]>([]);
+
+  useEffect(() => {
+    const fetchVans = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/vans`,
+          {
+            withCredentials: true,
+          },
+        );
+        setVans(response.data);
+      } catch (error) {
+        console.error("Error fetching vans:", error);
+      }
+    };
+    fetchVans();
+  }, []);
 
   const roadieToUpdate = {
-    firstname: roadies.firstname,
-    lastname: roadies.lastname,
-    email: roadies.email,
+    firstname: roadie.firstname,
+    lastname: roadie.lastname,
+    email: roadie.email,
   };
 
   const [updatedRoadie, setUpdatedRoadie] = useState(roadieToUpdate);
@@ -149,13 +170,13 @@ export default function RoadieInformation() {
             </h2>
           )}
           <p>Ton prénom:</p>
-          <p className="form_CI">{roadies.firstname}</p>
+          <p className="form_CI">{roadie.firstname}</p>
           <p>Ton nom de famille:</p>
-          <p className="form_CI">{roadies.lastname}</p>
+          <p className="form_CI">{roadie.lastname}</p>
           {location.pathname.endsWith("information") ? (
             <>
               <p>Ton E-mail:</p>
-              <p className="form_CI">{roadies.email}</p>
+              <p className="form_CI">{roadie.email}</p>
             </>
           ) : null}
           {location.pathname.endsWith("information") ? (
@@ -167,6 +188,28 @@ export default function RoadieInformation() {
               >
                 Modifier mes informations
               </button>
+
+              <h2 className="title_CI">
+                Mes <strong>VANS FAVORIS</strong>
+              </h2>
+              <ul className="scroll-card-container">
+                {vans.length > 0 ? (
+                  vans.map((van) => (
+                    <li key={van.id}>
+                      {" "}
+                      <VanCard van={van} />
+                      <Link
+                        className="colored-box link-to-applies"
+                        to={`/companies/dashboard/candidates-vans/${van.id}`}
+                      >
+                        voir les vans sauvegardés
+                      </Link>
+                    </li>
+                  ))
+                ) : (
+                  <li>Pas de van sauvegardé</li>
+                )}
+              </ul>
             </>
           ) : null}
         </section>
