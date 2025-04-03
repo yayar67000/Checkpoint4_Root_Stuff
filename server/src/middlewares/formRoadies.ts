@@ -39,4 +39,32 @@ const validate: RequestHandler = (req, res, next) => {
   }
 };
 
-export default { validate };
+const updateRoadieSchema = Joi.object({
+  firstname: Joi.string().max(50).required().messages({
+    "string.max": "Le prénom ne peut pas dépasser 50 caractères.",
+    "string.empty": "Le prénom est obligatoire.",
+    "any.required": "Le prénom est obligatoire.",
+  }),
+  lastname: Joi.string().max(50).required().messages({
+    "string.max": "La nom de famille ne peut pas dépasser 50 caractères.",
+    "string.empty": "La nom de famille est obligatoire.",
+    "any.required": "La nom de famille est obligatoire.",
+  }),
+  email: Joi.string().required().messages({
+    "string.empty": "L'email est obligatoire.",
+    "any.required": "L'email est obligatoire.",
+  }),
+});
+
+const validateUpdate: RequestHandler = (req, res, next) => {
+  const { error } = updateRoadieSchema.validate(req.body);
+
+  if (error) {
+    res.status(400).json({ error: error.details[0].message });
+    return;
+  }
+
+  next();
+};
+
+export default { validate, validateUpdate };

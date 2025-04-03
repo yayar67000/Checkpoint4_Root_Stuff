@@ -55,6 +55,14 @@ interface CompaniesDetailData {
   country_id: number;
 }
 
+interface RoadieData {
+  id: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+  updated_at: string;
+}
+
 interface SvgTypes {
   path: string;
   width: string;

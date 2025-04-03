@@ -1,5 +1,6 @@
 import type { RequestHandler } from "express";
 import userRepository from "./roadiesRepository";
+import roadiesRepository from "./roadiesRepository";
 
 const browse: RequestHandler = async (req, res, next) => {
   try {
@@ -13,13 +14,28 @@ const browse: RequestHandler = async (req, res, next) => {
 
 const read: RequestHandler = async (req, res, next) => {
   try {
-    const userId = Number(req.params.id);
-    const user = await userRepository.read(userId);
+    const roadieId = req.roadie.id;
+    const roadie = await userRepository.read(roadieId);
 
-    if (user == null) {
+    if (roadie == null) {
       res.sendStatus(404);
     } else {
-      res.json(user);
+      res.json(roadie);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+const readGeneralDetails: RequestHandler = async (req, res, next) => {
+  try {
+    const roadieId = Number(req.params.id);
+    const roadie = await roadiesRepository.readGeneralDetails(roadieId);
+
+    if (roadie == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(roadie);
     }
   } catch (err) {
     next(err);
@@ -28,15 +44,14 @@ const read: RequestHandler = async (req, res, next) => {
 
 const edit: RequestHandler = async (req, res, next) => {
   try {
-    const user = {
-      id: Number(req.params.id),
+    const editRoadie = {
+      id: req.roadie.id,
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       email: req.body.email,
-      hashed_password: req.body.hashed_password,
     };
 
-    const affectedRows = await userRepository.update(user);
+    const affectedRows = await userRepository.update(editRoadie);
 
     if (affectedRows === 0) {
       res.sendStatus(404);
@@ -85,4 +100,4 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, add, destroy, edit };
+export default { browse, read, readGeneralDetails, add, destroy, edit };

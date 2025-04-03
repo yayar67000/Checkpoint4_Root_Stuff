@@ -46,7 +46,11 @@ export default function Navbar() {
       path: "/vans",
       role: ["anonymous", "roadie"],
     },
-
+    {
+      name: "Mes informations",
+      path: "/roadies/information",
+      role: ["roadie"],
+    },
     {
       name: "Territoires à explorer",
       path: "/continents",
@@ -119,11 +123,13 @@ export default function Navbar() {
         </ul>
       </div>
       <ul className="menuDesktop">
-        {links.map((link) => (
-          <li key={link.name}>
-            <Link to={link.path}>{link.name}</Link>
-          </li>
-        ))}
+        {links
+          .filter((link) => link.role.includes(role))
+          .map((link) => (
+            <li key={link.name}>
+              <Link to={link.path}>{link.name}</Link>
+            </li>
+          ))}
         {role !== "anonymous" ? (
           <button type="button" onClick={disconnect}>
             Se déconnecter
