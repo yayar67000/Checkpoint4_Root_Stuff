@@ -8,6 +8,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // Import the main app component
 import App from "./App";
 
+import { AuthProvider } from "./services/AuthContext";
+
 // Import pages
 import Companies from "./pages/Companies/Companies";
 import CompaniesByCountry from "./pages/CompaniesByCountry/CompaniesByCountry";
@@ -114,7 +116,9 @@ if (rootElement == null) {
 // Render the app inside the root element
 createRoot(rootElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 );
 

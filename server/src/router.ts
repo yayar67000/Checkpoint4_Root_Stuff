@@ -8,6 +8,7 @@ const router = express.Router();
 
 // Define item-related routes
 import authActions from "./middlewares/authActions";
+import formRoadies from "./middlewares/formRoadies";
 import companyActions from "./modules/company/companyActions";
 import continentActions from "./modules/continent/continentActions";
 import countryActions from "./modules/country/countryActions";
@@ -57,8 +58,18 @@ router.delete("/api/continents/:id", continentActions.destroy);
 
 router.get("/api/roadies", roadiesActions.browse);
 router.get("/api/roadies/:id", roadiesActions.read);
-router.post("/api/roadies", authActions.hashPassword, roadiesActions.add);
-router.put("/api/roadies/:id", authActions.hashPassword, roadiesActions.edit);
+router.post(
+  "/api/roadies",
+  formRoadies.validate,
+  authActions.hashPassword,
+  roadiesActions.add,
+);
+router.put(
+  "/api/roadies/:id",
+  formRoadies.validate,
+  authActions.hashPassword,
+  roadiesActions.edit,
+);
 router.delete("/api/roadies/:id", roadiesActions.destroy);
 
 export default router;

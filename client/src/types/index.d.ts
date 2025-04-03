@@ -1,3 +1,17 @@
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+interface AuthProps {
+  role: string;
+  setRole: (role: string) => void;
+}
+
+type LoginRoadieProps = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
 interface ContinentData {
   id: number;
   name: string;
@@ -39,6 +53,12 @@ interface CompaniesDetailData {
   address: string;
   logo: string;
   country_id: number;
+}
+
+interface SvgTypes {
+  path: string;
+  width: string;
+  height: string;
 }
 
 interface VansData {

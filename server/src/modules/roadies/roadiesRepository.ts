@@ -11,10 +11,15 @@ type Roadies = {
 };
 
 class roadiesRepository {
-  async create(user: Omit<Roadies, "id">) {
+  async create(roadies: Omit<Roadies, "id">) {
     const [result] = await databaseClient.query<Result>(
       "insert into roadies (firstname, lastname, email, hashed_password) values (?, ?, ?, ?)",
-      [user.firstname, user.lastname, user.email, user.hashed_password],
+      [
+        roadies.firstname,
+        roadies.lastname,
+        roadies.email,
+        roadies.hashed_password,
+      ],
     );
     return result.insertId;
   }
