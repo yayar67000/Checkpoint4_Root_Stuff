@@ -53,16 +53,15 @@ export default function VanCard({ van }: VansDataProps) {
               <button
                 type="button"
                 onClick={() => saveVanCard(van)}
-                className="light-box"
+                className="colored-box"
               >
                 Sauvegarder
               </button>
-              {/* Show delete button only on /roadies/information page */}
               {location.pathname.startsWith("/roadies/information") && (
                 <button
                   type="button"
                   onClick={() => deleteVanCard(van.id)}
-                  className="light-box"
+                  className="cancel-box"
                 >
                   SUPPRIMER
                 </button>

@@ -60,10 +60,17 @@ export default function Navbar() {
 
   return (
     <nav>
-      <Link to="/" className="logo_picture">
+      {/* <Link to="/" className="logo_picture">
         <img src="/Logo/van_logo.png" alt="van_logo" className="van_logo" />
+      </Link> */}
+      <img
+        src="../Images/dino.jpg"
+        alt="background_nav_img"
+        className="background_nav_img"
+      />
+      <Link to="/" className="logo_title">
+        <h1>Road Stuff</h1>
       </Link>
-      <h1>Road Stuff</h1>
       <div className="burgerContainer">
         <button
           type="button"

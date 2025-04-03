@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { useRevalidator } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import VanCard from "../../components/VanCard/VanCard";
 
@@ -198,12 +197,6 @@ export default function RoadieInformation() {
                     <li key={van.id}>
                       {" "}
                       <VanCard van={van} />
-                      <Link
-                        className="colored-box link-to-applies"
-                        to={`/companies/dashboard/candidates-vans/${van.id}`}
-                      >
-                        voir les vans sauvegardés
-                      </Link>
                     </li>
                   ))
                 ) : (
