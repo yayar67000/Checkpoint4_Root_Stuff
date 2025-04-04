@@ -60,9 +60,6 @@ export default function Navbar() {
 
   return (
     <nav>
-      {/* <Link to="/" className="logo_picture">
-        <img src="/Logo/van_logo.png" alt="van_logo" className="van_logo" />
-      </Link> */}
       <img
         src="../Images/dino.jpg"
         alt="background_nav_img"
@@ -113,19 +110,17 @@ export default function Navbar() {
               Se déconnecter
             </button>
           ) : (
-            <>
-              <button
-                type="button"
-                className={activeLink === "se-connecter" ? "active" : ""}
-                onClick={() => {
-                  setActiveLink("se-connecter");
-                  openModal();
-                  setIsOpen(false);
-                }}
-              >
-                Se connecter
-              </button>
-            </>
+            <button
+              type="button"
+              className={activeLink === "se-connecter" ? "active" : ""}
+              onClick={() => {
+                setActiveLink("se-connecter");
+                openModal();
+                setIsOpen(false);
+              }}
+            >
+              Se connecter
+            </button>
           )}
         </ul>
       </div>

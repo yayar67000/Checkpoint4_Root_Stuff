@@ -90,11 +90,11 @@ const add: RequestHandler = async (req, res, next) => {
 
 const destroy: RequestHandler = async (req, res, next) => {
   try {
-    const userId = Number(req.params.id);
+    const roadiesId = req.roadie.id;
 
-    await userRepository.delete(userId);
+    await roadiesRepository.delete(roadiesId);
 
-    res.sendStatus(204);
+    res.sendStatus(204).send({ message: "Compte supprimé avec succès" });
   } catch (err) {
     next(err);
   }

@@ -96,6 +96,48 @@ export default function RoadieInformation() {
     }
   };
 
+  const deleteAccount = async () => {
+    if (
+      window.confirm(
+        "Voulez-vous vraiment supprimer votre compte ? Cette action est irréversible.",
+      )
+    ) {
+      try {
+        await axios.delete(
+          `${import.meta.env.VITE_API_URL}/api/roadies/delete`,
+          {
+            withCredentials: true,
+          },
+        );
+        toast.success("Compte supprimé avec succès.", {
+          position: "bottom-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+          transition: Bounce,
+        });
+        // Redirigez l'utilisateur après la suppression
+        window.location.href = "/"; // Redirection vers la page d'accueil
+      } catch (error) {
+        console.error("Erreur lors de la suppression du compte :", error);
+        toast.error(
+          "Une erreur s'est produite lors de la suppression du compte.",
+          {
+            position: "bottom-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "light",
+            transition: Bounce,
+          },
+        );
+      }
+    }
+  };
+
   const renderEditableForm = () => {
     return (
       <form onSubmit={handleSubmit}>
@@ -186,6 +228,13 @@ export default function RoadieInformation() {
                 onClick={() => setIsEditing(true)}
               >
                 Modifier mes informations
+              </button>
+              <button
+                type="button"
+                className="cancel-box"
+                onClick={deleteAccount}
+              >
+                Supprimer mon compte
               </button>
 
               <h2 className="title_CI">
