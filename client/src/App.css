@@ -101,7 +101,7 @@ label {
   font-weight: 600;
   padding: 0.5rem 1rem;
   text-align: center;
-  border: solid var(--tertiary) 1px;
+  border: solid var(--brown) 1px;
   border-radius: 5px;
 }
 

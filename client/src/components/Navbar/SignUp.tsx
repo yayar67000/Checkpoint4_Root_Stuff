@@ -111,7 +111,7 @@ export default function SignUp({ isOpen, onClose }: LoginRoadieProps) {
           <div className="register_content">
             <p className="register_text">Déjà inscrit ?</p>
             <button
-              className="register_button"
+              className="light-box"
               type="button"
               onClick={() => setIsSignIn(true)}
             >

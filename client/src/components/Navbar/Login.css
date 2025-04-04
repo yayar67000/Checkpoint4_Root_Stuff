@@ -53,13 +53,6 @@
       font-size: .8rem;
     }
 
-    & .register_button {
-      background: none;
-      font-weight: bold;
-      color: var(--secundary);
-      cursor: pointer;
-    }
-
     & input {
       padding: 0.6rem;
       border-radius: 8px;
