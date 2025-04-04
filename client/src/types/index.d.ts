@@ -78,6 +78,7 @@ interface VansData {
   lbs: string;
   brand: string;
   company_id: number;
+  isFavorite?: boolean;
 }
 
 interface VansByCompanyData {

@@ -118,8 +118,8 @@ export default function RoadieInformation() {
           theme: "light",
           transition: Bounce,
         });
-        // Redirigez l'utilisateur après la suppression
-        window.location.href = "/"; // Redirection vers la page d'accueil
+
+        window.location.href = "/";
       } catch (error) {
         console.error("Erreur lors de la suppression du compte :", error);
         toast.error(
