@@ -76,6 +76,6 @@ router.put(
   formRoadies.validateUpdate,
   roadiesActions.edit,
 );
-router.delete("/api/roadies/:id", roadiesActions.destroy);
+router.delete("/api/roadies/:id", authActions.verify, roadiesActions.destroy);
 
 export default router;

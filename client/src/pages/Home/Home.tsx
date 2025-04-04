@@ -54,11 +54,7 @@ export default function Home() {
       <h2 className="div_titles">Les véhicules pour tracer ta route</h2>
       <div className="cards_scroll">
         {vans.length > 0
-          ? vans.map((van) => (
-              <Link key={van.id} to={`/vanDetails/${van.id}`}>
-                <VanCard key={van.id} van={van} />
-              </Link>
-            ))
+          ? vans.map((van) => <VanCard key={van.id} van={van} />)
           : null}
       </div>
     </main>
