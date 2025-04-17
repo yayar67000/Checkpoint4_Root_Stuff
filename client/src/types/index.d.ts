@@ -1,3 +1,10 @@
+interface FavoriteContextProps {
+  favoriteVans: FavoriteVansData[];
+  isFavorite: (vanId: number) => boolean;
+  addToFavorites: (vanId: number) => Promise<void>;
+  removeFromFavorites: (vanId: number) => Promise<void>;
+}
+
 interface AuthProviderProps {
   children: ReactNode;
 }
@@ -78,7 +85,6 @@ interface VansData {
   lbs: string;
   brand: string;
   company_id: number;
-  isFavorite?: boolean;
 }
 
 interface VansByCompanyData {
@@ -92,6 +98,22 @@ interface VansByCompanyData {
   company_id: number;
 }
 
-interface VansDataProps {
+type VansCardProps = {
   van: VansData;
+  isFavorite: boolean;
+  onAddFavorite: (vanId: number) => Promise<void>;
+  onRemoveFavorite: (favoriteVanId: number) => Promise<void>;
+};
+
+interface FavoriteVansData {
+  id: number;
+  roadie_id: number;
+  van_id: number;
+  name: string;
+  picture: string;
+  number_plate: string;
+  fuel: string;
+  lbs: string;
+  brand: string;
+  company_id: number;
 }

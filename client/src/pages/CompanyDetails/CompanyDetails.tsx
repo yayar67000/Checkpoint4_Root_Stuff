@@ -8,7 +8,13 @@ export default function CompanyDetails() {
     vans: VansData[];
   };
 
-  console.info(vans);
+  const handleAddFavorite = async (vanId: number) => {
+    console.info(`Ajout du van ${vanId} aux favoris`);
+  };
+
+  const handleRemoveFavorite = async (favoriteVanId: number) => {
+    console.info(`Suppression du favori ${favoriteVanId}`);
+  };
 
   return (
     <main className="all_companydetails_page">
@@ -24,7 +30,15 @@ export default function CompanyDetails() {
       <article className="vanbycompany_cards">
         <h1>Vans disponibles {vans.length}</h1>
         {vans.length > 0
-          ? vans.map((van) => <VanCard key={van.id} van={van} />)
+          ? vans.map((van) => (
+              <VanCard
+                key={van.id}
+                van={van}
+                isFavorite={false}
+                onAddFavorite={handleAddFavorite}
+                onRemoveFavorite={handleRemoveFavorite}
+              />
+            ))
           : null}
       </article>
     </main>

@@ -12,27 +12,22 @@ const browse: RequestHandler = async (req, res, next) => {
 
 const readByRoadie: RequestHandler = async (req, res, next) => {
   try {
-    const roadieId = Number(req.params.roadie_id);
+    const roadieId = req.roadie.id;
+
+    if (!roadieId) {
+      res.status(401).json({ error: "Unauthorized: Roadie ID is missing" });
+      return;
+    }
+
     const favoriteVans =
       await favoriteVanRepository.readVanByRoadieId(roadieId);
 
     if (!favoriteVans || favoriteVans.length === 0) {
-      res.sendStatus(404);
-    } else {
-      const response = favoriteVans.map((favoriteVan) => ({
-        id: favoriteVan.id,
-        roadies_id: favoriteVan.roadies_id,
-        van_id: favoriteVan.van_id,
-        name: favoriteVan.name,
-        number_plate: favoriteVan.number_plate,
-        picture: favoriteVan.picture,
-        fuel: favoriteVan.fuel,
-        lbs: favoriteVan.lbs,
-        brand: favoriteVan.brand,
-        company_id: favoriteVan.company_id,
-      }));
-      res.json(response);
+      res.status(404).json({ error: "No favorite vans found" });
+      return;
     }
+
+    res.status(200).json(favoriteVans);
   } catch (err) {
     next(err);
   }
@@ -40,25 +35,29 @@ const readByRoadie: RequestHandler = async (req, res, next) => {
 
 const addFavoriteVan: RequestHandler = async (req, res, next) => {
   try {
-    const newFavoriteVan = {
-      roadies_id: req.roadie.id,
-      van_id: req.body.van_id,
-    };
+    const roadies_id = req.roadie.id; // ID du roadie connecté
+    const { van_id } = req.body;
 
+    if (!van_id) {
+      res.status(400).json({ error: "van_id est requis" });
+      return;
+    }
+
+    const existingFavorite = await favoriteVanRepository.readByRoadieAndVanId(
+      roadies_id,
+      van_id,
+    );
+
+    if (existingFavorite) {
+      res.status(400).json({ error: "Ce van est déjà dans vos favoris." });
+      return;
+    }
+
+    const newFavoriteVan = { roadies_id, van_id };
     const insertId = await favoriteVanRepository.create(newFavoriteVan);
 
     res.status(201).json({ insertId });
   } catch (err) {
-    if (typeof err === "object" && err !== null && "code" in err) {
-      const error = err as { code: string };
-
-      if (error.code === "ER_DUP_ENTRY") {
-        void res
-          .status(400)
-          .json({ error: "Vous avez déjà envoyé votre candidature." });
-        return;
-      }
-    }
     next(err);
   }
 };
