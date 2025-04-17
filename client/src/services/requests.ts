@@ -90,6 +90,21 @@ const getFavoriteVans = () => {
     .catch((error) => console.error(error));
 };
 
+const addFavoriteVan = async (vanId: number) => {
+  return axios.post(
+    `${import.meta.env.VITE_API_URL}/api/favorite_van`,
+    { van_id: vanId },
+    { withCredentials: true },
+  );
+};
+
+const removeFavoriteVan = async (favoriteVanId: number) => {
+  return axios.delete(
+    `${import.meta.env.VITE_API_URL}/api/favorite_van/${favoriteVanId}`,
+    { withCredentials: true },
+  );
+};
+
 export {
   getAllCountries,
   getAllVans,
@@ -103,4 +118,6 @@ export {
   getRoadieAuth,
   getGeneralRoadiesDetails,
   getFavoriteVans,
+  addFavoriteVan,
+  removeFavoriteVan,
 };

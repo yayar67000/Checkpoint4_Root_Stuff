@@ -91,19 +91,23 @@ interface VansByCompanyData {
   company_id: number;
 }
 
-interface VansDataProps {
+type VansCardProps = {
   van: VansData;
-}
+  favoriteVan?: FavoriteVansData;
+  isFavorite: boolean;
+  onAddFavorite: (vanId: number) => void;
+  onRemoveFavorite: (favoriteVanId: number) => void;
+};
 
 interface FavoriteVansData {
   id: number;
-  van_id: number;
   roadie_id: number;
-  van_name: string;
-  van_picture: string;
-  van_number_plate: string;
-  van_fuel: string;
-  van_lbs: string;
-  van_brand: string;
-  van_company_id: number;
+  van_id: number;
+  name: string;
+  picture: string;
+  number_plate: string;
+  fuel: string;
+  lbs: string;
+  brand: string;
+  company_id: number;
 }

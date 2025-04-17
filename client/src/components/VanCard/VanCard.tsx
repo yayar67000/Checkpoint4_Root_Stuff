@@ -1,45 +1,15 @@
 import "./VanCard.css";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
 import { Link } from "react-router-dom";
-import { useAuth } from "../../services/AuthContext";
 
-export default function VanCard({ van }: VansDataProps) {
-  const { role } = useAuth();
-
-  const navigate = useNavigate();
-
-  const saveVanCard = (van: VansData) => {
-    if (window.confirm("Voulez-vous vraiment sauvegarder cette offre ?")) {
-      axios
-        .post(`${import.meta.env.VITE_API_URL}/api/vans`, van, {
-          withCredentials: true,
-        })
-        .then(() => {
-          navigate("/roadies/information", { replace: true });
-        })
-        .catch((error) => {
-          console.error("Erreur lors de la sauvegarde de l'offre :", error);
-        });
-    }
-  };
-
-  const deleteVanCard = (id: number) => {
-    if (window.confirm("Voulez-vous vraiment supprimer cette offre ?")) {
-      axios
-        .delete(`${import.meta.env.VITE_API_URL}/api/vans/${id}`, {
-          withCredentials: true,
-        })
-        .then(() => {
-          navigate("/roadies/information", { replace: true });
-        })
-        .catch((error) => {
-          console.error("Erreur lors de l'ajout de l'offre :", error);
-        });
-    }
-  };
+export default function VanCard({
+  van,
+  isFavorite,
+  onAddFavorite,
+  onRemoveFavorite,
+}: VansCardProps) {
   return (
-    <>
+    <div className="van_card_container">
       <Link
         key={van.id}
         to={`/vanDetails/${van.id}`}
@@ -48,28 +18,25 @@ export default function VanCard({ van }: VansDataProps) {
         <div className="van_card">
           <img src={van.picture} alt={van.name} />
           <h2>{van.name}</h2>
-          {role === "roadie" && (
-            <>
-              <button
-                type="button"
-                onClick={() => saveVanCard(van)}
-                className="colored-box"
-              >
-                Sauvegarder
-              </button>
-              {location.pathname.startsWith("/roadies/information") && (
-                <button
-                  type="button"
-                  onClick={() => deleteVanCard(van.id)}
-                  className="cancel-box"
-                >
-                  SUPPRIMER
-                </button>
-              )}
-            </>
-          )}
         </div>
       </Link>
-    </>
+      {isFavorite ? (
+        <button
+          type="button"
+          className="light-box"
+          onClick={() => onRemoveFavorite(van.id)}
+        >
+          Supprimer des favoris
+        </button>
+      ) : (
+        <button
+          type="button"
+          className="colored-box"
+          onClick={() => onAddFavorite(van.id)}
+        >
+          Ajouter aux favoris
+        </button>
+      )}
+    </div>
   );
 }

@@ -6,14 +6,17 @@ import { useRevalidator } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import VanCard from "../../components/VanCard/VanCard";
+import { addFavoriteVan, removeFavoriteVan } from "../../services/requests";
 
 export default function RoadieInformation() {
   const { revalidate } = useRevalidator();
   const location = useLocation();
   const { roadie, favoriteVans } = useLoaderData() as {
     roadie: RoadieData;
-    favoriteVans: VansData[];
+    favoriteVans: FavoriteVansData[];
   };
+
+  console.info("Données des vans favoris :", favoriteVans);
 
   const roadieToUpdate = {
     firstname: roadie.firstname,
@@ -24,6 +27,28 @@ export default function RoadieInformation() {
   const [updatedRoadie, setUpdatedRoadie] = useState(roadieToUpdate);
   const [isEditing, setIsEditing] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const handleAddFavorite = async (vanId: number) => {
+    try {
+      await addFavoriteVan(vanId);
+      toast.success("Van ajouté aux favoris !");
+      revalidate();
+    } catch (error) {
+      console.error("Erreur lors de l'ajout aux favoris :", error);
+      toast.error("Impossible d'ajouter le van aux favoris.");
+    }
+  };
+
+  const handleRemoveFavorite = async (favoriteVanId: number) => {
+    try {
+      await removeFavoriteVan(favoriteVanId);
+      toast.success("Van supprimé des favoris !");
+      revalidate();
+    } catch (error) {
+      console.error("Erreur lors de la suppression des favoris :", error);
+      toast.error("Impossible de supprimer le van des favoris.");
+    }
+  };
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -225,11 +250,17 @@ export default function RoadieInformation() {
                 Mes <strong>VANS FAVORIS</strong>
               </h2>
               <ul className="scroll-card-container">
-                {favoriteVans.length > 0 ? (
-                  favoriteVans.map((van) => (
-                    <li key={van.id} className="van_card">
+                {favoriteVans && favoriteVans.length > 0 ? (
+                  favoriteVans.map((favoriteVan) => (
+                    <li key={favoriteVan.id} className="van_card">
                       {" "}
-                      <VanCard van={van} />
+                      <VanCard
+                        van={favoriteVan}
+                        favoriteVan={favoriteVan}
+                        isFavorite={true}
+                        onAddFavorite={handleAddFavorite}
+                        onRemoveFavorite={handleRemoveFavorite}
+                      />
                     </li>
                   ))
                 ) : (
