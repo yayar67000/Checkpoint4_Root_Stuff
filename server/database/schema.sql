@@ -42,7 +42,7 @@ CREATE TABLE roadies (
   hashed_password VARCHAR(200) NOT NULL
 );
 
-CREATE TABLE roadies_van (
+CREATE TABLE favorite_van (
   id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   roadies_id INT UNSIGNED NOT NULL,
   van_id INT UNSIGNED NOT NULL,
@@ -117,6 +117,6 @@ VALUES
 ('Alice', 'Dupont', 'alice.dupont@example.com', "$argon2id$v=19$m=19456,t=1,p=1$Y2FtZW1iZXJ0$mPxQmyFeEMOsQXyRzxYhww"),
 ('Bob', 'Martin', 'bob.martin@example.com', '$argon2id$v=19$m=19456,t=1,p=1$bXVuc3RlcjY3MDAw$rMSgiRghvwVDUIEUUub2Eg');
 
-INSERT INTO roadies_van (roadies_id, van_id) VALUES
+INSERT INTO favorite_van (roadies_id, van_id) VALUES
 (1,1),
 (2,4);
