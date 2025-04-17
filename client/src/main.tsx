@@ -34,6 +34,7 @@ import {
   getCompaniesDetails,
   getCountriesByContinent,
   getDetailsVan,
+  getFavoriteVans,
   getGeneralRoadiesDetails,
   getRoadieAuth,
   getVansbyCompany,
@@ -116,7 +117,13 @@ const router = createBrowserRouter([
         element: <RoadieInformation />,
         loader: async () => {
           const roadie = await getRoadieAuth();
-          return roadie || null;
+          const favoriteVans = await getFavoriteVans();
+
+          if (!roadie) {
+            throw new Response("Unauthorized", { status: 401 });
+          }
+
+          return { roadie, favoriteVans };
         },
       },
     ],

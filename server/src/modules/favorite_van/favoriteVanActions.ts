@@ -12,27 +12,22 @@ const browse: RequestHandler = async (req, res, next) => {
 
 const readByRoadie: RequestHandler = async (req, res, next) => {
   try {
-    const roadieId = Number(req.params.roadie_id);
+    const roadieId = req.roadie.id; // ID du roadie connecté
+
+    if (!roadieId) {
+      res.status(401).json({ error: "Unauthorized: Roadie ID is missing" });
+      return;
+    }
+
     const favoriteVans =
       await favoriteVanRepository.readVanByRoadieId(roadieId);
 
     if (!favoriteVans || favoriteVans.length === 0) {
-      res.sendStatus(404);
-    } else {
-      const response = favoriteVans.map((favoriteVan) => ({
-        id: favoriteVan.id,
-        roadies_id: favoriteVan.roadies_id,
-        van_id: favoriteVan.van_id,
-        name: favoriteVan.name,
-        number_plate: favoriteVan.number_plate,
-        picture: favoriteVan.picture,
-        fuel: favoriteVan.fuel,
-        lbs: favoriteVan.lbs,
-        brand: favoriteVan.brand,
-        company_id: favoriteVan.company_id,
-      }));
-      res.json(response);
+      res.status(404).json({ error: "No favorite vans found" });
+      return;
     }
+
+    res.status(200).json(favoriteVans);
   } catch (err) {
     next(err);
   }

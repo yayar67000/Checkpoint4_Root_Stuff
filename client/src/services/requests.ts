@@ -81,6 +81,15 @@ const getGeneralRoadiesDetails = (id: string | undefined) => {
     .catch((error) => console.error(error));
 };
 
+const getFavoriteVans = () => {
+  return axios
+    .get(`${import.meta.env.VITE_API_URL}/api/favorite_van`, {
+      withCredentials: true,
+    })
+    .then((response) => response.data)
+    .catch((error) => console.error(error));
+};
+
 export {
   getAllCountries,
   getAllVans,
@@ -93,4 +102,5 @@ export {
   getAllCompanies,
   getRoadieAuth,
   getGeneralRoadiesDetails,
+  getFavoriteVans,
 };

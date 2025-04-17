@@ -78,7 +78,6 @@ interface VansData {
   lbs: string;
   brand: string;
   company_id: number;
-  isFavorite?: boolean;
 }
 
 interface VansByCompanyData {
@@ -94,4 +93,17 @@ interface VansByCompanyData {
 
 interface VansDataProps {
   van: VansData;
+}
+
+interface FavoriteVansData {
+  id: number;
+  van_id: number;
+  roadie_id: number;
+  van_name: string;
+  van_picture: string;
+  van_number_plate: string;
+  van_fuel: string;
+  van_lbs: string;
+  van_brand: string;
+  van_company_id: number;
 }

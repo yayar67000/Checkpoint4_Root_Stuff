@@ -81,9 +81,8 @@ router.delete("/api/roadies/:id", authActions.verify, roadiesActions.destroy);
 
 /* *****************FAVORITE_VAN************************ */
 
-router.get("/api/favorite_van", favoriteVanActions.browse);
 router.get(
-  "/api/favorite_van/:roadie_id",
+  "/api/favorite_van",
   authActions.verify,
   favoriteVanActions.readByRoadie,
 );
