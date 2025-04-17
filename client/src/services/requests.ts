@@ -86,11 +86,12 @@ const getFavoriteVans = () => {
     .get(`${import.meta.env.VITE_API_URL}/api/favorite_van`, {
       withCredentials: true,
     })
-    .then((response) => response.data)
+    .then((response) => response.data || [])
     .catch((error) => console.error(error));
 };
 
 const addFavoriteVan = async (vanId: number) => {
+  console.info("Données envoyées :", { van_id: vanId });
   return axios.post(
     `${import.meta.env.VITE_API_URL}/api/favorite_van`,
     { van_id: vanId },

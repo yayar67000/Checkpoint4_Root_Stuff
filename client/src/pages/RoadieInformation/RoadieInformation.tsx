@@ -6,15 +6,16 @@ import { useRevalidator } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import VanCard from "../../components/VanCard/VanCard";
-import { addFavoriteVan, removeFavoriteVan } from "../../services/requests";
+import { useFavorites } from "../../services/FavoriteContext";
 
 export default function RoadieInformation() {
   const { revalidate } = useRevalidator();
   const location = useLocation();
-  const { roadie, favoriteVans } = useLoaderData() as {
+  const { roadie } = useLoaderData() as {
     roadie: RoadieData;
-    favoriteVans: FavoriteVansData[];
   };
+
+  const { favoriteVans, addToFavorites, removeFromFavorites } = useFavorites();
 
   console.info("Données des vans favoris :", favoriteVans);
 
@@ -27,28 +28,6 @@ export default function RoadieInformation() {
   const [updatedRoadie, setUpdatedRoadie] = useState(roadieToUpdate);
   const [isEditing, setIsEditing] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  const handleAddFavorite = async (vanId: number) => {
-    try {
-      await addFavoriteVan(vanId);
-      toast.success("Van ajouté aux favoris !");
-      revalidate();
-    } catch (error) {
-      console.error("Erreur lors de l'ajout aux favoris :", error);
-      toast.error("Impossible d'ajouter le van aux favoris.");
-    }
-  };
-
-  const handleRemoveFavorite = async (favoriteVanId: number) => {
-    try {
-      await removeFavoriteVan(favoriteVanId);
-      toast.success("Van supprimé des favoris !");
-      revalidate();
-    } catch (error) {
-      console.error("Erreur lors de la suppression des favoris :", error);
-      toast.error("Impossible de supprimer le van des favoris.");
-    }
-  };
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -256,10 +235,9 @@ export default function RoadieInformation() {
                       {" "}
                       <VanCard
                         van={favoriteVan}
-                        favoriteVan={favoriteVan}
                         isFavorite={true}
-                        onAddFavorite={handleAddFavorite}
-                        onRemoveFavorite={handleRemoveFavorite}
+                        onAddFavorite={addToFavorites}
+                        onRemoveFavorite={removeFromFavorites}
                       />
                     </li>
                   ))

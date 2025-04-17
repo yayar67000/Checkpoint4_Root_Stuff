@@ -9,6 +9,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 
 import { AuthProvider } from "./services/AuthContext";
+import { FavoriteProvider } from "./services/FavoriteContext";
 
 // Import pages
 import Companies from "./pages/Companies/Companies";
@@ -143,7 +144,9 @@ if (rootElement == null) {
 createRoot(rootElement).render(
   <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <FavoriteProvider>
+        <RouterProvider router={router} />
+      </FavoriteProvider>
     </AuthProvider>
   </StrictMode>,
 );

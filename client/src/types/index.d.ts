@@ -1,3 +1,10 @@
+interface FavoriteContextProps {
+  favoriteVans: FavoriteVansData[];
+  isFavorite: (vanId: number) => boolean;
+  addToFavorites: (vanId: number) => Promise<void>;
+  removeFromFavorites: (vanId: number) => Promise<void>;
+}
+
 interface AuthProviderProps {
   children: ReactNode;
 }
@@ -93,10 +100,9 @@ interface VansByCompanyData {
 
 type VansCardProps = {
   van: VansData;
-  favoriteVan?: FavoriteVansData;
   isFavorite: boolean;
-  onAddFavorite: (vanId: number) => void;
-  onRemoveFavorite: (favoriteVanId: number) => void;
+  onAddFavorite: (vanId: number) => Promise<void>;
+  onRemoveFavorite: (favoriteVanId: number) => Promise<void>;
 };
 
 interface FavoriteVansData {
