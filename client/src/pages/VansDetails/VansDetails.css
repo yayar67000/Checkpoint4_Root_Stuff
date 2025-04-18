@@ -24,8 +24,14 @@
     align-items: center;
 
     & .infos_vans {
-      width: 120vh;
-      height: 120vh;
+      min-width: 120vh;
+      min-height: 120vh;
+
+      & img {
+        object-fit: cover;
+        max-height: 44.128rem;
+        max-width: 66.625rem;
+      }
     }
   }
 }
