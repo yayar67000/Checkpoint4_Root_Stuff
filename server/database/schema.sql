@@ -120,3 +120,27 @@ VALUES
 INSERT INTO favorite_van (roadies_id, van_id) VALUES
 (1,1),
 (2,4);
+
+-- Mise à jour des country_id pour les entreprises en France
+UPDATE company SET country_id = 1 WHERE address LIKE '%France%';
+
+-- Mise à jour des country_id pour les entreprises aux États-Unis
+UPDATE company SET country_id = 9 WHERE address LIKE '%USA%';
+
+-- Mise à jour des country_id pour les entreprises en Australie
+UPDATE company SET country_id = 11 WHERE address LIKE '%Australie%';
+
+-- Mise à jour des country_id pour les entreprises au Royaume-Uni
+UPDATE company SET country_id = 5 WHERE address LIKE '%Royaume-Uni%';
+
+-- Mise à jour des country_id pour les entreprises au Canada
+UPDATE company SET country_id = 8 WHERE address LIKE '%Canada%';
+
+-- Mise à jour des country_id pour les entreprises en Allemagne
+UPDATE company SET country_id = 2 WHERE address LIKE '%Allemagne%';
+
+-- Mise à jour des country_id pour les entreprises en Espagne
+UPDATE company SET country_id = 4 WHERE address LIKE '%Espagne%';
+
+-- Mise à jour des country_id pour les entreprises en Italie
+UPDATE company SET country_id = 3 WHERE address LIKE '%Italie%';
