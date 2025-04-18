@@ -153,19 +153,35 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
   .dialog_signup {
     display: flex;
     flex-direction: column;
     width: 90vw;
     & .opening_register {
+      & p {
+        color: var(--brown);
+      }
       & .cancel-box {
         align-self: center;
-        width: 14.406rem;
+        width: 100%;
       }
       & .colored-box {
-        align-items: center;
-        width: 14.406rem;
+        align-self: center;
+        width: 100%;
+      }
+      & .password_input {
+        height: 2.262rem;
+
+        & .input_password {
+          height: 2.262rem;
+        }
+      }
+      & .input_password {
+        flex: 1;
+        border: none;
+        padding: 0.6rem;
+        font-size: inherit;
       }
     }
   }

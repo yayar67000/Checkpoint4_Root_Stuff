@@ -46,6 +46,7 @@ h2,
 h3 {
   font-family: "Roboto", serif;
   font-optical-sizing: auto;
+  color: var(--brown);
 }
 
 label {
@@ -121,8 +122,9 @@ label {
   align-items: center;
   justify-content: center;
   background-color: var(--light);
-  color: var(--primary);
+  color: var(--brown);
   padding: 0.5rem 1rem;
   text-align: center;
   border-radius: 5px;
+  border-color: var(--brown);
 }
