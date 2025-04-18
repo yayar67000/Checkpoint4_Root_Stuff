@@ -7,7 +7,8 @@
     max-width: 100%;
     overflow: hidden;
     gap: 2rem;
-    margin: 0 0 1rem 1rem;
+    margin: 0 0 1rem 0;
+    padding-left: 1rem;
     overflow-x: scroll;
     scroll-behavior: smooth;
 
@@ -20,7 +21,7 @@
     }
 
     & .cards_scroll::-webkit-scrollbar-thumb {
-      background: var(--secundary);
+      background: var(--brown);
       border-radius: 4px;
     }
   }
@@ -32,5 +33,36 @@
   }
   & .div_titles {
     margin: 0 0 0 1rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .all_home_page {
+    & h1 {
+      margin: 5rem 0 5rem 2rem;
+      font-size: 1.5rem;
+    }
+    & .div_titles {
+      margin: 0 0 0 2rem;
+    }
+
+    & .cards_scroll {
+      margin: 0 2rem 7rem 1rem;
+      padding-left: 1rem;
+      gap: 6rem;
+    }
+
+    & .cards_scroll::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    & .cards_scroll::-webkit-scrollbar-track {
+      background: var(--light);
+    }
+
+    & .cards_scroll::-webkit-scrollbar-thumb {
+      background: var(--brown);
+      border-radius: 4px;
+    }
   }
 }

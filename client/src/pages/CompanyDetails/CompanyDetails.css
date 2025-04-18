@@ -22,3 +22,15 @@
     flex-direction: row;
   }
 }
+
+@media screen and (min-width: 768px) {
+  .all_companydetails_page {
+    margin: 5rem 2rem 5rem 2rem;
+    align-items: center;
+
+    & .infos_vans {
+      width: 120vh;
+      height: 120vh;
+    }
+  }
+}
