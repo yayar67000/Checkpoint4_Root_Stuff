@@ -1,17 +1,50 @@
 .all_company_page {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Assure que les éléments sont espacés */
   align-items: center;
-  min-height: 100vh; /* La page occupe toute la hauteur de la fenêtre */
-  box-sizing: border-box; /* Inclut les bordures et paddings dans la hauteur */
-  padding: 1rem; /* Optionnel : ajoute un peu de padding */
+  & h1 {
+    margin-top: 2rem;
+  }
+  & > div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
 }
 
-.all_company_page h1 {
-  margin-top: 2rem;
-}
+@media screen and (min-width: 768px) {
+  .all_company_page {
+    & h1 {
+      font-size: 2rem;
+      margin: 5rem 0 3rem 0;
+    }
+    & > div {
+      display: flex;
+      flex-direction: row;
+      max-width: 100%;
+      overflow: hidden;
+      gap: 2rem;
+      padding-top: 2rem;
 
-.all_company_page .div {
-  margin-bottom: 1rem;
+      overflow-x: scroll;
+      scroll-behavior: smooth;
+    }
+
+    & div {
+      margin: 0 2rem 5rem 3rem;
+      gap: 1rem;
+    }
+    & div::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    & div::-webkit-scrollbar-track {
+      background: var(--light);
+    }
+
+    & div::-webkit-scrollbar-thumb {
+      background: var(--brown);
+      border-radius: 4px;
+    }
+  }
 }

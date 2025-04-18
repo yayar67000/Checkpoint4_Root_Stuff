@@ -1,35 +1,23 @@
 import "./RoadieInformation.css";
 import axios from "axios";
 import { useState } from "react";
-import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { useRevalidator } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import VanCard from "../../components/VanCard/VanCard";
+import { useFavorites } from "../../services/FavoriteContext";
 
 export default function RoadieInformation() {
   const { revalidate } = useRevalidator();
   const location = useLocation();
-  const roadie = useLoaderData() as RoadieData;
-  const [vans, setVans] = useState<VansData[]>([]);
+  const { roadie } = useLoaderData() as {
+    roadie: RoadieData;
+  };
 
-  useEffect(() => {
-    const fetchVans = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/vans`,
-          {
-            withCredentials: true,
-          },
-        );
-        setVans(response.data);
-      } catch (error) {
-        console.error("Error fetching vans:", error);
-      }
-    };
-    fetchVans();
-  }, []);
+  const { favoriteVans, addToFavorites, removeFromFavorites } = useFavorites();
+
+  console.info("Données des vans favoris :", favoriteVans);
 
   const roadieToUpdate = {
     firstname: roadie.firstname,
@@ -241,11 +229,16 @@ export default function RoadieInformation() {
                 Mes <strong>VANS FAVORIS</strong>
               </h2>
               <ul className="scroll-card-container">
-                {vans.length > 0 ? (
-                  vans.map((van) => (
-                    <li key={van.id}>
+                {favoriteVans && favoriteVans.length > 0 ? (
+                  favoriteVans.map((favoriteVan) => (
+                    <li key={favoriteVan.id} className="van_card_favorite">
                       {" "}
-                      <VanCard van={van} />
+                      <VanCard
+                        van={favoriteVan}
+                        isFavorite={true}
+                        onAddFavorite={addToFavorites}
+                        onRemoveFavorite={removeFromFavorites}
+                      />
                     </li>
                   ))
                 ) : (

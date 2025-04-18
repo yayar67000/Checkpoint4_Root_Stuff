@@ -12,6 +12,14 @@ export default function Home() {
     companies: CompaniesDetailData[];
     vans: VansData[];
   };
+
+  const handleAddFavorite = async (vanId: number) => {
+    console.info(`Ajout du van ${vanId} aux favoris`);
+  };
+
+  const handleRemoveFavorite = async (favoriteVanId: number) => {
+    console.info(`Suppression du favori ${favoriteVanId}`);
+  };
   return (
     <main className="all_home_page">
       <h1>
@@ -54,7 +62,15 @@ export default function Home() {
       <h2 className="div_titles">Les véhicules pour tracer ta route</h2>
       <div className="cards_scroll">
         {vans.length > 0
-          ? vans.map((van) => <VanCard key={van.id} van={van} />)
+          ? vans.map((van) => (
+              <VanCard
+                key={van.id}
+                van={van}
+                isFavorite={false}
+                onAddFavorite={handleAddFavorite}
+                onRemoveFavorite={handleRemoveFavorite}
+              />
+            ))
           : null}
       </div>
     </main>

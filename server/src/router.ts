@@ -13,6 +13,7 @@ import formVan from "./middlewares/formVan";
 import companyActions from "./modules/company/companyActions";
 import continentActions from "./modules/continent/continentActions";
 import countryActions from "./modules/country/countryActions";
+import favoriteVanActions from "./modules/favorite_van/favoriteVanActions";
 import roadiesActions from "./modules/roadies/roadiesActions";
 import vanActions from "./modules/van/vanActions";
 
@@ -77,5 +78,23 @@ router.put(
   roadiesActions.edit,
 );
 router.delete("/api/roadies/:id", authActions.verify, roadiesActions.destroy);
+
+/* *****************FAVORITE_VAN************************ */
+
+router.get(
+  "/api/favorite_van",
+  authActions.verify,
+  favoriteVanActions.readByRoadie,
+);
+router.post(
+  "/api/favorite_van",
+  authActions.verify,
+  favoriteVanActions.addFavoriteVan,
+);
+router.delete(
+  "/api/favorite_van/:id",
+  authActions.verify,
+  favoriteVanActions.destroyFavoriteVan,
+);
 
 export default router;

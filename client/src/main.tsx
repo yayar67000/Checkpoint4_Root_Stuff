@@ -9,6 +9,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 
 import { AuthProvider } from "./services/AuthContext";
+import { FavoriteProvider } from "./services/FavoriteContext";
 
 // Import pages
 import Companies from "./pages/Companies/Companies";
@@ -34,6 +35,7 @@ import {
   getCompaniesDetails,
   getCountriesByContinent,
   getDetailsVan,
+  getFavoriteVans,
   getGeneralRoadiesDetails,
   getRoadieAuth,
   getVansbyCompany,
@@ -116,7 +118,13 @@ const router = createBrowserRouter([
         element: <RoadieInformation />,
         loader: async () => {
           const roadie = await getRoadieAuth();
-          return roadie || null;
+          const favoriteVans = await getFavoriteVans();
+
+          if (!roadie) {
+            throw new Response("Unauthorized", { status: 401 });
+          }
+
+          return { roadie, favoriteVans };
         },
       },
     ],
@@ -136,7 +144,9 @@ if (rootElement == null) {
 createRoot(rootElement).render(
   <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <FavoriteProvider>
+        <RouterProvider router={router} />
+      </FavoriteProvider>
     </AuthProvider>
   </StrictMode>,
 );

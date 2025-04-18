@@ -3,6 +3,7 @@ import axios from "axios";
 import type { FormEventHandler } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Bounce, toast } from "react-toastify";
 import { useAuth } from "../../services/AuthContext";
 import SvgIcons from "../SvgIcons";
 import SignUp from "./SignUp";
@@ -54,6 +55,15 @@ export default function Login({ isOpen, onClose }: LoginRoadieProps) {
           setRole(response.data.role);
           console.info(response.data.role);
           if (response.data.role === "roadie") {
+            toast.success("Connexion validée !", {
+              position: "bottom-center",
+              autoClose: 2000,
+              hideProgressBar: false,
+              pauseOnHover: true,
+              draggable: true,
+              theme: "light",
+              transition: Bounce,
+            });
             onClose();
             navigate("/");
           }
@@ -61,6 +71,15 @@ export default function Login({ isOpen, onClose }: LoginRoadieProps) {
     } catch (err) {
       console.error("Request failed:", err);
       setError("Échec de connexion. Vérifiez vos identifiants.");
+      toast.error("Échec de connexion. Vérifiez vos identifiants !", {
+        position: "bottom-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+        transition: Bounce,
+      });
     }
   };
 

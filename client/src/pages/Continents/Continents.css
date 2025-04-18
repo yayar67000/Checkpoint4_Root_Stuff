@@ -9,3 +9,40 @@
     margin-bottom: 1rem;
   }
 }
+
+@media screen and (min-width: 768px) {
+  .all_continent_page {
+    & h1 {
+      font-size: 2rem;
+      margin: 5rem 0 3rem 0;
+    }
+    & > div {
+      display: flex;
+      flex-direction: row;
+      max-width: 100%;
+      overflow: hidden;
+      gap: 2rem;
+      padding-top: 2rem;
+
+      overflow-x: scroll;
+      scroll-behavior: smooth;
+    }
+
+    & div {
+      margin: 0 2rem 5rem 3rem;
+      gap: 1rem;
+    }
+    & div::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    & div::-webkit-scrollbar-track {
+      background: var(--light);
+    }
+
+    & div::-webkit-scrollbar-thumb {
+      background: var(--brown);
+      border-radius: 4px;
+    }
+  }
+}

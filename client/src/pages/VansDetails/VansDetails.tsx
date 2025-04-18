@@ -14,7 +14,9 @@ export default function VansDetails() {
         <p>Escence : {vans.fuel}</p>
         <p>Poids: {vans.lbs}</p>
         <p>Immatriculation : {vans.number_plate}</p>
-        <button type="button">Réserver</button>
+        <button type="button" className="colored-box">
+          Réserver
+        </button>
       </article>
     </main>
   );

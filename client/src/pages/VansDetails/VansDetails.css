@@ -11,5 +11,27 @@
     gap: 2rem;
     border: 2px solid var(--brown);
     border-radius: 8px;
+
+    & img {
+      border-radius: 8px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .all_vansdetails_page {
+    margin: 5rem 2rem 5rem 2rem;
+    align-items: center;
+
+    & .infos_vans {
+      min-width: 120vh;
+      min-height: 120vh;
+
+      & img {
+        object-fit: cover;
+        max-height: 44.128rem;
+        max-width: 66.625rem;
+      }
+    }
   }
 }
