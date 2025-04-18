@@ -231,7 +231,7 @@ export default function RoadieInformation() {
               <ul className="scroll-card-container">
                 {favoriteVans && favoriteVans.length > 0 ? (
                   favoriteVans.map((favoriteVan) => (
-                    <li key={favoriteVan.id} className="van_card">
+                    <li key={favoriteVan.id} className="van_card_favorite">
                       {" "}
                       <VanCard
                         van={favoriteVan}
