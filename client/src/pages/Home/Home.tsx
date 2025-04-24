@@ -4,6 +4,7 @@ import CompanyCard from "../../components/CompanyCard/CompanyCard";
 import ContinentCard from "../../components/ContinentCard/ContinentCard";
 import CountryCard from "../../components/CountryCard/CountryCard";
 import VanCard from "../../components/VanCard/VanCard";
+import { useAuth } from "../../services/AuthContext";
 
 export default function Home() {
   const { continents, countries, companies, vans } = useLoaderData() as {
@@ -12,6 +13,9 @@ export default function Home() {
     companies: CompaniesDetailData[];
     vans: VansData[];
   };
+
+  const { role, userName } = useAuth();
+  const isConnected = role !== "anonymous";
 
   const handleAddFavorite = async (vanId: number) => {
     console.info(`Ajout du van ${vanId} aux favoris`);
@@ -22,10 +26,18 @@ export default function Home() {
   };
   return (
     <main className="all_home_page">
-      <h1>
-        Bienvenue à vous les roadies ! Prêts pour ajouter des couleurs et des
-        souvenirs inoubliables dans votre vie ?
-      </h1>
+      {!isConnected ? (
+        <h1>
+          Bienvenue à vous les roadies ! Prêts pour ajouter des couleurs et des
+          souvenirs inoubliables dans votre vie ?
+        </h1>
+      ) : (
+        <h1>
+          Bienvenue à toi {userName}! Prêt(e) à ajouter des couleurs et des
+          souvenirs inoubliables dans ta vie ? Tu peux maintenant ajouter des
+          vans à tes favoris et réserver !
+        </h1>
+      )}
       <h2 className="div_titles">Les continents</h2>
       <div className="cards_scroll">
         {continents.length > 0

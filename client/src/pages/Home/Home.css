@@ -48,7 +48,7 @@
 
     & .cards_scroll {
       margin: 0 2rem 7rem 1rem;
-      padding-left: 1rem;
+      padding: 0 1rem 0 1rem;
       gap: 6rem;
     }
 

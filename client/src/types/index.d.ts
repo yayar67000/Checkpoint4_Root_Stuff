@@ -12,6 +12,8 @@ interface AuthProviderProps {
 interface AuthProps {
   role: string;
   setRole: (role: string) => void;
+  userName: string;
+  setUserName: (userName: string) => void;
 }
 
 type LoginRoadieProps = {

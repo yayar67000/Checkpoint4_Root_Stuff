@@ -32,6 +32,7 @@ export default function Login({ isOpen, onClose }: LoginRoadieProps) {
   const togglePassword = () => {
     setShowPassword(!showPassword);
   };
+  const { setUserName } = useAuth();
 
   const showIconPassword = showPassword ? icon.visible : icon.notVisible;
 
@@ -53,7 +54,8 @@ export default function Login({ isOpen, onClose }: LoginRoadieProps) {
         })
         .then((response) => {
           setRole(response.data.role);
-          console.info(response.data.role);
+          setUserName(response.data.name);
+          console.info(response.data.role, response.data.name);
           if (response.data.role === "roadie") {
             toast.success("Connexion validée !", {
               position: "bottom-center",

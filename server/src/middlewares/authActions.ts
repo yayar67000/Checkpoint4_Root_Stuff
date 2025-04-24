@@ -7,6 +7,7 @@ const login: RequestHandler = async (req, res, next) => {
   try {
     const roadie = await roadiesRepository.readByEmailWithPassword(
       req.body.email,
+      req.body.firstname,
     );
 
     if (roadie) {
@@ -15,6 +16,7 @@ const login: RequestHandler = async (req, res, next) => {
         id: roadie.id,
         email: roadie.email,
         role: "roadie",
+        firstname: roadie.firstname,
       };
     }
 
@@ -23,7 +25,7 @@ const login: RequestHandler = async (req, res, next) => {
     }
 
     const verified = await argon2.verify(req.user.password, req.body.password);
-
+    console.info(roadie.firstname);
     if (!verified) {
       res.sendStatus(422);
     } else {
@@ -31,6 +33,7 @@ const login: RequestHandler = async (req, res, next) => {
         id: req.user.id,
         email: req.user.email,
         role: req.user.role,
+        firstname: req.user.firstname,
       };
 
       if (!process.env.APP_SECRET) {
@@ -45,6 +48,7 @@ const login: RequestHandler = async (req, res, next) => {
       res.cookie("auth", token).send({
         message: "Utilisateur connecté",
         role: req.user.role,
+        name: req.user.firstname,
       });
     }
   } catch (error) {

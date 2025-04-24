@@ -22,6 +22,7 @@ declare global {
         password: string;
         role: string;
         favoriteVanId?: number;
+        firstname: string;
       };
       auth: {
         email: string;
