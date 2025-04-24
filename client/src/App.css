@@ -16,6 +16,7 @@
   --message-error: red;
 }
 
+html,
 body {
   font-family: Verdana, sans-serif;
   font-optical-sizing: auto;
@@ -25,11 +26,14 @@ body {
   line-height: 1;
   color: var(--primary);
   margin: 0;
+  height: 100%;
+  width: 100%;
 }
 
 main {
   display: flex;
   flex: 1;
+  min-height: 70vh;
 }
 
 .messageError {

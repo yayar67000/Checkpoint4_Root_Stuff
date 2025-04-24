@@ -2,9 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  & h1 {
+
+  & h1,
+  p {
     margin-top: 2rem;
+    color: var(--brown);
   }
+
   & > div {
     display: flex;
     flex-direction: column;
@@ -18,6 +22,7 @@
       font-size: 2rem;
       margin: 5rem 0 3rem 0;
     }
+
     & > div {
       display: flex;
       flex-direction: row;
@@ -25,7 +30,6 @@
       overflow: hidden;
       gap: 2rem;
       padding-top: 2rem;
-
       overflow-x: scroll;
       scroll-behavior: smooth;
     }
@@ -34,6 +38,7 @@
       margin: 0 2rem 5rem 3rem;
       gap: 1rem;
     }
+
     & div::-webkit-scrollbar {
       height: 8px;
     }
