@@ -8,6 +8,7 @@ const router = express.Router();
 
 // Define item-related routes
 import authActions from "./middlewares/authActions";
+import formReservedVan from "./middlewares/formReservedVan";
 import formRoadies from "./middlewares/formRoadies";
 import formVan from "./middlewares/formVan";
 import companyActions from "./modules/company/companyActions";
@@ -110,6 +111,13 @@ router.post(
   "/api/reserved_van",
   authActions.verify,
   reservedVanActions.addReservedVan,
+);
+
+router.put(
+  "/api/reserved_van/:id",
+  authActions.verify,
+  formReservedVan.validate,
+  reservedVanActions.edit,
 );
 
 router.delete(

@@ -33,6 +33,28 @@ const readByRoadie: RequestHandler = async (req, res, next) => {
   }
 };
 
+const edit: RequestHandler = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+
+    const editReservedVan = {
+      id,
+      roadies_id: req.body.roadie_id,
+      van_id: req.body.van_id,
+      start_date: req.body.start_date,
+      end_date: req.body.end_date,
+    };
+    const affectedRows = await reservedVanRepository.update(editReservedVan);
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 const addReservedVan: RequestHandler = async (req, res, next) => {
   try {
     const roadies_id = req.roadie.id;
@@ -94,6 +116,7 @@ const destroyReservedVan: RequestHandler = async (req, res, next) => {
 export default {
   browse,
   readByRoadie,
+  edit,
   addReservedVan,
   destroyReservedVan,
 };

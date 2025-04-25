@@ -19,6 +19,15 @@ type CreateReservedVanInput = {
 
 class ReservedVanRepository {
   async create(reservedVan: CreateReservedVanInput) {
+    const isAvailable = await this.checkVanAvailability(
+      reservedVan.van_id,
+      reservedVan.start_date,
+      reservedVan.end_date,
+    );
+
+    if (!isAvailable) {
+      return { message: "Ce van est déjà réservé à ces dates ci." };
+    }
     const [result] = await databaseClient.query<Result>(
       "INSERT INTO reserved_van (roadies_id, van_id, start_date, end_date) VALUES (?, ?, ?, ?)",
       [
@@ -73,6 +82,7 @@ class ReservedVanRepository {
 
   async checkVanAvailability(
     van_id: number,
+
     start_date: string,
     end_date: string,
   ) {
@@ -94,18 +104,12 @@ class ReservedVanRepository {
     );
 
     if (!isAvailable) {
-      return { message: "Van not available for these dates" };
+      return { message: "Ce van est déjà réservé à ces dates ci." };
     }
 
     const [result] = await databaseClient.query<Result>(
-      "UPDATE reserved_van SET roadies_id = ?, van_id = ?, start_date = ?, end_date = ? WHERE id = ?",
-      [
-        reservedVan.roadies_id,
-        reservedVan.van_id,
-        reservedVan.start_date,
-        reservedVan.end_date,
-        reservedVan.id,
-      ],
+      "UPDATE reserved_van SET start_date = ?, end_date = ? WHERE id = ?",
+      [reservedVan.start_date, reservedVan.end_date, reservedVan.id],
     );
     return result.affectedRows;
   }
