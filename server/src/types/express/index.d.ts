@@ -34,6 +34,8 @@ declare global {
       };
       resereved_van: {
         id: number;
+        roadies_id: number;
+        van_id: number;
         start_date: string;
         end_date: string;
       };
