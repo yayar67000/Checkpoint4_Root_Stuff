@@ -91,7 +91,6 @@ const getFavoriteVans = () => {
 };
 
 const addFavoriteVan = async (vanId: number) => {
-  console.info("Données envoyées :", { van_id: vanId });
   return axios.post(
     `${import.meta.env.VITE_API_URL}/api/favorite_van`,
     { van_id: vanId },
@@ -102,6 +101,37 @@ const addFavoriteVan = async (vanId: number) => {
 const removeFavoriteVan = async (favoriteVanId: number) => {
   return axios.delete(
     `${import.meta.env.VITE_API_URL}/api/favorite_van/${favoriteVanId}`,
+    { withCredentials: true },
+  );
+};
+
+const getReservedVan = () => {
+  return axios
+    .get(`${import.meta.env.VITE_API_URL}/api/reserved_van`, {
+      withCredentials: true,
+    })
+    .then((response) => response.data || [])
+    .catch((error) => console.error(error));
+};
+
+const addReservedVan = async (vanId: number) => {
+  return axios.post(
+    `${import.meta.env.VITE_API_URL}/api/reserved_van`,
+    { van_id: vanId },
+    { withCredentials: true },
+  );
+};
+
+const editReservedVan = async (reservedVanId: number) => {
+  return axios.put(
+    `${import.meta.env.VITE_API_URL}/api/reserved_van/${reservedVanId}`,
+    { withCredentials: true },
+  );
+};
+
+const deleteReservedVan = async (reservedVanId: number) => {
+  return axios.delete(
+    `${import.meta.env.VITE_API_URL}/api/reserved_van/${reservedVanId}`,
     { withCredentials: true },
   );
 };
@@ -117,8 +147,12 @@ export {
   getDetailsVan,
   getAllCompanies,
   getRoadieAuth,
+  getReservedVan,
   getGeneralRoadiesDetails,
   getFavoriteVans,
   addFavoriteVan,
+  addReservedVan,
+  editReservedVan,
   removeFavoriteVan,
+  deleteReservedVan,
 };

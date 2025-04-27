@@ -10,6 +10,7 @@ import App from "./App";
 
 import { AuthProvider } from "./services/AuthContext";
 import { FavoriteProvider } from "./services/FavoriteContext";
+import { ReservedProvider } from "./services/ReservedVanContext";
 
 // Import pages
 import Companies from "./pages/Companies/Companies";
@@ -37,6 +38,7 @@ import {
   getDetailsVan,
   getFavoriteVans,
   getGeneralRoadiesDetails,
+  getReservedVan,
   getRoadieAuth,
   getVansbyCompany,
 } from "./services/requests";
@@ -100,7 +102,8 @@ const router = createBrowserRouter([
         element: <RoadieInformation />,
         loader: async ({ params }) => {
           const company = await getGeneralRoadiesDetails(params.id);
-          return company;
+          const reservedVan = await getReservedVan;
+          return { company, reservedVan };
         },
       },
       {
@@ -145,7 +148,9 @@ createRoot(rootElement).render(
   <StrictMode>
     <AuthProvider>
       <FavoriteProvider>
-        <RouterProvider router={router} />
+        <ReservedProvider>
+          <RouterProvider router={router} />
+        </ReservedProvider>
       </FavoriteProvider>
     </AuthProvider>
   </StrictMode>,
