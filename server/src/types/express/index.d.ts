@@ -32,7 +32,7 @@ declare global {
       roadie: {
         id: number;
       };
-      resereved_van: {
+      reserved_van: {
         id: number;
         roadies_id: number;
         van_id: number;

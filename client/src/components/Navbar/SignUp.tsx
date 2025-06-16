@@ -101,6 +101,12 @@ export default function SignUp({ isOpen, onClose }: LoginRoadieProps) {
     }
   };
 
+  const isStrongPassword = (password: string) => {
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return strongPasswordRegex.test(password);
+  };
+
   return (
     <dialog className="dialog_signup" open={isOpen}>
       {isSignIn ? (
@@ -111,7 +117,7 @@ export default function SignUp({ isOpen, onClose }: LoginRoadieProps) {
           <div className="register_content">
             <p className="register_text">Déjà inscrit ?</p>
             <button
-              className="light-box"
+              className="colored-box"
               type="button"
               onClick={() => setIsSignIn(true)}
             >
@@ -172,6 +178,7 @@ export default function SignUp({ isOpen, onClose }: LoginRoadieProps) {
                 aria-describedby="password-error-password"
                 placeholder="Votre mot de passe"
                 required
+                minLength={8}
               />
               <button
                 type="button"
@@ -185,8 +192,11 @@ export default function SignUp({ isOpen, onClose }: LoginRoadieProps) {
                 />
               </button>
             </div>
-            {credentials.password.length >= 8 ? "✅" : "❌"}{" "}
-            {`Longueur : ${credentials.password.length} >= 8`}
+            {isStrongPassword(credentials.password) ? "✅" : "❌"}
+            <p id="passwordHelp">
+              8 caractères minimum, au moins une majuscule, une minuscule, un
+              chiffre et un caractère spécial.
+            </p>
             <label htmlFor="confirmPassword">
               Confirmez votre mot de passe<span className="star"> *</span>
             </label>
@@ -199,6 +209,7 @@ export default function SignUp({ isOpen, onClose }: LoginRoadieProps) {
                 value={credentials.password_confirmation}
                 onChange={handleChange}
                 placeholder="Confirmez votre mot de passe"
+                minLength={8}
                 required
               />
               <button

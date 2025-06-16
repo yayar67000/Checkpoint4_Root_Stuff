@@ -131,7 +131,7 @@ export default function Login({ isOpen, onClose }: LoginRoadieProps) {
             <button className="colored-box" type="submit">
               Se connecter
             </button>
-            <button className="cancel-box" type="button" onClick={onClose}>
+            <button className="delete-box" type="button" onClick={onClose}>
               Annuler
             </button>
             <div className="register_content">

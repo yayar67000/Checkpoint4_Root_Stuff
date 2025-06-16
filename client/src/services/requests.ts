@@ -114,10 +114,23 @@ const getReservedVan = () => {
     .catch((error) => console.error(error));
 };
 
-const addReservedVan = async (vanId: number) => {
+const getReservedVanById = (reservedVanId: number) => {
+  return axios
+    .get(`${import.meta.env.VITE_API_URL}/api/reserved_van/${reservedVanId}`, {
+      withCredentials: true,
+    })
+    .then((response) => response.data || [])
+    .catch((error) => console.error(error));
+};
+
+const addReservedVan = async ({
+  van_id,
+  start_date,
+  end_date,
+}: { van_id: number; start_date: string; end_date: string }) => {
   return axios.post(
     `${import.meta.env.VITE_API_URL}/api/reserved_van`,
-    { van_id: vanId },
+    { van_id, start_date, end_date },
     { withCredentials: true },
   );
 };
@@ -146,6 +159,7 @@ export {
   getVansbyCompany,
   getDetailsVan,
   getAllCompanies,
+  getReservedVanById,
   getRoadieAuth,
   getReservedVan,
   getGeneralRoadiesDetails,

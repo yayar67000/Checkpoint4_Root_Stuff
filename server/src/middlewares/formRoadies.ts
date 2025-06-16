@@ -16,13 +16,19 @@ const roadieSchema = Joi.object({
     "string.empty": "L'email est obligatoire.",
     "any.required": "L'email est obligatoire.",
   }),
-  password: Joi.string().min(8).max(100).label("password").required().messages({
-    "string.empty": "Le champ ne peut pas être vide",
-    "string.min": "Une longueur de 8 caractères est demandée",
-    "any.required": "Le mot de passe est obligatoire",
-    "string.pattern":
-      "Le mot de passe doit contenir des majuscules, minuscules et caractères spéciaux",
-  }),
+  password: Joi.string()
+    .min(8)
+    .max(100)
+    .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/)
+    .label("password")
+    .required()
+    .messages({
+      "string.empty": "Le champ ne peut pas être vide",
+      "string.min": "Une longueur de 8 caractères est demandée",
+      "any.required": "Le mot de passe est obligatoire",
+      "string.pattern.base":
+        "Le mot de passe doit contenir des majuscules, minuscules et au moins un caractère spécial",
+    }),
   password_confirmation: Joi.any()
     .valid(Joi.ref("password"))
     .required()
@@ -31,9 +37,8 @@ const roadieSchema = Joi.object({
 
 const validate: RequestHandler = (req, res, next) => {
   const { error } = roadieSchema.validate(req.body);
-
   if (error) {
-    res.json(error.details[0].message);
+    res.status(400).json({ error: error.details[0].message });
   } else {
     next();
   }

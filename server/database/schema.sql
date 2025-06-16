@@ -57,7 +57,8 @@ CREATE TABLE reserved_van (
   start_date DATE NOT NULL,
   end_date DATE NOT NULL,
   FOREIGN KEY (roadies_id) REFERENCES roadies(id),
-  FOREIGN KEY (van_id) REFERENCES van(id)
+  FOREIGN KEY (van_id) REFERENCES van(id),
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- Insertion des continents

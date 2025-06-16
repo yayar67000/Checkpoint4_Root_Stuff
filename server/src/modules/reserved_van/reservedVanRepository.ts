@@ -28,6 +28,8 @@ class ReservedVanRepository {
     if (!isAvailable) {
       return { message: "Ce van est déjà réservé à ces dates ci." };
     }
+
+    // Insert the reserved van into the database
     const [result] = await databaseClient.query<Result>(
       "INSERT INTO reserved_van (roadies_id, van_id, start_date, end_date) VALUES (?, ?, ?, ?)",
       [
@@ -98,7 +100,7 @@ class ReservedVanRepository {
 
   async update(reservedVan: ReservedVan) {
     const isAvailable = await this.checkVanAvailability(
-      reservedVan.van_id,
+      reservedVan.id,
       reservedVan.start_date,
       reservedVan.end_date,
     );
