@@ -7,7 +7,6 @@ import { useLocation } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import VanCard from "../../components/VanCard/VanCard";
 import { useFavorites } from "../../services/FavoriteContext";
-import { useReserved } from "../../services/ReservedVanContext";
 
 export default function RoadieInformation() {
   const { revalidate } = useRevalidator();
@@ -17,7 +16,6 @@ export default function RoadieInformation() {
   };
 
   const { favoriteVans, addToFavorites, removeFromFavorites } = useFavorites();
-  const { reservedVans, addToReserved, removeFromReserved } = useReserved();
 
   const roadieToUpdate = {
     firstname: roadie.firstname,
@@ -248,23 +246,6 @@ export default function RoadieInformation() {
               <h2 className="title_CI">
                 Mes <strong>RESERVATIONS</strong>
               </h2>
-              <ul className="scroll-card-container">
-                {reservedVans && reservedVans.length > 0 ? (
-                  reservedVans.map((reservedVan) => (
-                    <li key={reservedVan.id} className="van_card_favorite">
-                      {" "}
-                      <VanCard
-                        van={reservedVan}
-                        isReserved={true}
-                        onAddReserved={addToReserved}
-                        onRemoveReserved={removeFromReserved}
-                      />
-                    </li>
-                  ))
-                ) : (
-                  <li>Pas de van réservé</li>
-                )}
-              </ul>
             </>
           ) : null}
         </section>
