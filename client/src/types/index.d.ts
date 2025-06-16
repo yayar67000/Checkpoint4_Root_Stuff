@@ -107,16 +107,6 @@ interface VansByCompanyData {
   company_id: number;
 }
 
-type VansCardProps = {
-  van: VansData;
-  isFavorite?: boolean;
-  onAddFavorite?: (vanId: number) => Promise<void>;
-  onRemoveFavorite?: (favoriteVanId: number) => Promise<void>;
-  isReserved?: boolean;
-  onAddReserved?: (vanId: number) => Promise<void>;
-  onRemoveReserved?: (reservedVanId: number) => Promise<void>;
-};
-
 interface FavoriteVansData {
   id: number;
   roadie_id: number;
@@ -129,6 +119,16 @@ interface FavoriteVansData {
   brand: string;
   company_id: number;
 }
+
+type VansCardProps = {
+  van: VansData;
+  isFavorite?: boolean;
+  onAddFavorite?: (vanId: number) => Promise<void>;
+  onRemoveFavorite?: (favoriteVanId: number) => Promise<void>;
+  isReserved?: boolean;
+  onAddReserved?: (vanId: number) => Promise<void>;
+  onRemoveReserved?: (reservedVanId: number) => Promise<void>;
+};
 
 interface ReservedVansData {
   id: number;

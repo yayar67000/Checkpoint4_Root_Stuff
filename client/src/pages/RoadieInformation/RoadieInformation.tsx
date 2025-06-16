@@ -210,14 +210,14 @@ export default function RoadieInformation() {
             <>
               <button
                 type="button"
-                className="colored-box"
+                className="edit-box"
                 onClick={() => setIsEditing(true)}
               >
                 Modifier mes informations
               </button>
               <button
                 type="button"
-                className="cancel-box"
+                className="delete-box"
                 onClick={deleteAccount}
               >
                 Supprimer mon compte
@@ -229,10 +229,19 @@ export default function RoadieInformation() {
               <ul className="scroll-card-container">
                 {favoriteVans && favoriteVans.length > 0 ? (
                   favoriteVans.map((favoriteVan) => (
-                    <li key={favoriteVan.id} className="van_card_favorite">
+                    <li key={favoriteVan.van_id} className="van_card_favorite">
                       {" "}
                       <VanCard
-                        van={favoriteVan}
+                        van={{
+                          id: favoriteVan.van_id,
+                          name: favoriteVan.name,
+                          number_plate: favoriteVan.number_plate,
+                          picture: favoriteVan.picture,
+                          fuel: favoriteVan.fuel,
+                          lbs: favoriteVan.lbs,
+                          brand: favoriteVan.brand,
+                          company_id: favoriteVan.company_id,
+                        }}
                         isFavorite={true}
                         onAddFavorite={addToFavorites}
                         onRemoveFavorite={removeFromFavorites}
