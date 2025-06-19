@@ -31,7 +31,7 @@ export const FavoriteProvider = ({
 
   // Vérifie si un van est dans les favoris
   const isFavorite = (vanId: number) => {
-    return favoriteVans?.some((van) => van.id === vanId) || false;
+    return favoriteVans?.some((van) => van.van_id === vanId) || false;
   };
 
   // Ajouter un van aux favoris
@@ -48,7 +48,13 @@ export const FavoriteProvider = ({
   // Supprimer un van des favoris
   const removeFromFavorites = async (vanId: number) => {
     try {
-      await removeFavoriteVan(vanId);
+      // Trouve le favori correspondant à ce van
+      const favorite = favoriteVans.find((fav) => fav.van_id === vanId);
+      if (!favorite) {
+        console.error("Favori non trouvé pour ce van !");
+        return;
+      }
+      await removeFavoriteVan(favorite.id); // id de la réservation/favori
       const updatedFavorites = await getFavoriteVans();
       setFavoriteVans(updatedFavorites);
     } catch (error) {

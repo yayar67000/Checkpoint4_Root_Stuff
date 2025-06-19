@@ -18,13 +18,7 @@ export default function RoadieInformation() {
   };
 
   const { favoriteVans, addToFavorites, removeFromFavorites } = useFavorites();
-  const { reservedVans, isReserved, addToReserved, removeFromReserved } =
-    useReservedVans() as {
-      reservedVans: ReservedVansData[];
-      isReserved: (vanId: number) => boolean;
-      addToReserved: (vanId: number) => Promise<void>;
-      removeFromReserved: (vanId: number) => Promise<void>;
-    };
+  const { reservedVans, addToReserved, removeFromReserved } = useReservedVans();
 
   const roadieToUpdate = {
     firstname: roadie.firstname,
@@ -98,12 +92,9 @@ export default function RoadieInformation() {
       )
     ) {
       try {
-        await axios.delete(
-          `${import.meta.env.VITE_API_URL}/api/roadies/delete`,
-          {
-            withCredentials: true,
-          },
-        );
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/roadies/:id`, {
+          withCredentials: true,
+        });
         toast.success("Compte supprimé avec succès.", {
           position: "bottom-center",
           autoClose: 2000,
@@ -267,10 +258,10 @@ export default function RoadieInformation() {
               <ul className="scroll-container-card">
                 {reservedVans && reservedVans.length > 0 ? (
                   reservedVans.map((reservedVan) => (
-                    <li key={reservedVan.van_id} className="van_card_reserved">
+                    <li key={reservedVan.id} className="van_card_reserved">
                       <ReservedVanCard
                         reservedVan={{
-                          id: reservedVan.van_id,
+                          id: reservedVan.id,
                           van_id: reservedVan.van_id,
                           start_date: reservedVan.start_date,
                           end_date: reservedVan.end_date,
@@ -283,7 +274,7 @@ export default function RoadieInformation() {
                           brand: reservedVan.brand,
                           company_id: reservedVan.company_id,
                         }}
-                        isReserved={isReserved(reservedVan.van_id)}
+                        isReserved={true}
                         onAddReserved={addToReserved}
                         onRemoveReserved={removeFromReserved}
                       />

@@ -8,7 +8,11 @@ interface FavoriteContextProps {
 interface ReservedVanContextProps {
   reservedVans: ReservedVansData[];
   isReserved: (vanId: number) => boolean;
-  addToReserved: (vanId: number) => Promise<void>;
+  addToReserved: (
+    vanId: number,
+    startDate: string,
+    endDate: string,
+  ) => Promise<void>;
   removeFromReserved: (vanId: number) => Promise<void>;
 }
 
@@ -129,7 +133,11 @@ type VansCardProps = {
 type ReservedVansCardProps = {
   reservedVan: ReservedVansData;
   isReserved?: boolean;
-  onAddReserved?: (reservedVanId: number) => Promise<void>;
+  onAddReserved?: (
+    reservedVanId: number,
+    startDate: string,
+    endDate: string,
+  ) => Promise<void>;
   onRemoveReserved?: (reservedVanId: number) => Promise<void>;
 };
 
