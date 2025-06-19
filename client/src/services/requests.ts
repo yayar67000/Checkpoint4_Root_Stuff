@@ -105,7 +105,7 @@ const removeFavoriteVan = async (favoriteVanId: number) => {
   );
 };
 
-const getReservedVan = () => {
+const getReservedVans = () => {
   return axios
     .get(`${import.meta.env.VITE_API_URL}/api/reserved_van`, {
       withCredentials: true,
@@ -114,9 +114,9 @@ const getReservedVan = () => {
     .catch((error) => console.error(error));
 };
 
-const getReservedVanById = (reservedVanId: number) => {
+const getReservedVanById = (van_id: number) => {
   return axios
-    .get(`${import.meta.env.VITE_API_URL}/api/reserved_van/${reservedVanId}`, {
+    .get(`${import.meta.env.VITE_API_URL}/api/reserved_van/${van_id}`, {
       withCredentials: true,
     })
     .then((response) => response.data || [])
@@ -136,6 +136,10 @@ const addReservedVan = async ({
 };
 
 const deleteReservedVan = async (reservedVanId: number) => {
+  if (!reservedVanId) {
+    alert("Impossible de trouver la réservation à supprimer !");
+    return;
+  }
   return axios.delete(
     `${import.meta.env.VITE_API_URL}/api/reserved_van/${reservedVanId}`,
     { withCredentials: true },
@@ -154,7 +158,7 @@ export {
   getAllCompanies,
   getReservedVanById,
   getRoadieAuth,
-  getReservedVan,
+  getReservedVans,
   getGeneralRoadiesDetails,
   getFavoriteVans,
   addFavoriteVan,

@@ -2,25 +2,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import {
   addReservedVan,
   deleteReservedVan,
-  getReservedVan,
+  getReservedVans,
 } from "../services/requests";
-
-type ReservedVansData = {
-  van_id: number;
-  start_date: string;
-  end_date: string;
-};
-
-interface ReservedVanContextProps {
-  reservedVans: ReservedVansData[];
-  isReserved: (vanId: number) => boolean;
-  addToReserved: (
-    vanId: number,
-    startDate: string,
-    endDate: string,
-  ) => Promise<void>;
-  removeFromReserved: (vanId: number) => Promise<void>;
-}
 
 const ReservedContext = createContext<ReservedVanContextProps | undefined>(
   undefined,
@@ -34,7 +17,7 @@ export const ReservedVanProvider = ({
   useEffect(() => {
     const fetchReservedVans = async () => {
       try {
-        const reserved = await getReservedVan();
+        const reserved = await getReservedVans();
         setReservedVans(reserved || []);
       } catch (error) {
         console.error("Erreur lors du chargement des vans réservés :", error);
@@ -60,8 +43,9 @@ export const ReservedVanProvider = ({
         start_date: startDate,
         end_date: endDate,
       });
-      const updatedReserved = await getReservedVan();
+      const updatedReserved = await getReservedVans();
       setReservedVans(updatedReserved);
+      getReservedVans();
     } catch (error) {
       console.error("Erreur lors de l'ajout à la réservation :", error);
     }
@@ -70,7 +54,7 @@ export const ReservedVanProvider = ({
   const removeFromReserved = async (vanId: number) => {
     try {
       await deleteReservedVan(vanId);
-      const updatedReserved = await getReservedVan();
+      const updatedReserved = await getReservedVans();
       setReservedVans(updatedReserved);
     } catch (error) {
       console.error("Erreur lors de la suppression de la réservation :", error);

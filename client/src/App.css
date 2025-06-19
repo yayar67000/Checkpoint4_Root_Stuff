@@ -54,6 +54,12 @@ h3 {
   color: var(--brown);
 }
 
+p {
+  font-family: "Roboto", serif;
+  font-optical-sizing: auto;
+  color: var(--primary);
+}
+
 label {
   color: var(--brown);
   font-weight: bold;

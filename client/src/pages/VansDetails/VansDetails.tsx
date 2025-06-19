@@ -1,7 +1,7 @@
 import "./VansDetails.css";
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import { addReservedVan, deleteReservedVan } from "../../services/requests";
+import { useReservedVans } from "../../services/ReservedVanContext";
 
 export default function VansDetails() {
   const { vans, reservedVan } = useLoaderData() as {
@@ -13,6 +13,8 @@ export default function VansDetails() {
   const [endDate, setEndDate] = useState("");
   const [isReserved, setIsReserved] = useState(false);
 
+  const { addToReserved, removeFromReserved } = useReservedVans();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -21,11 +23,7 @@ export default function VansDetails() {
         start_date: startDate,
         end_date: endDate,
       });
-      await addReservedVan({
-        van_id: vans.id,
-        start_date: startDate,
-        end_date: endDate,
-      });
+      await addToReserved(vans.id, startDate, endDate);
       alert(`Réservation pour le van ${vans.name} effectuée !`);
       setIsReserved(true);
       setShowModal(false);
@@ -43,7 +41,7 @@ export default function VansDetails() {
       return;
     }
     try {
-      await deleteReservedVan(reservedVan.id);
+      await removeFromReserved(reservedVan.id);
       setIsReserved(false);
       alert("Réservation annulée !");
     } catch (error) {

@@ -1,5 +1,5 @@
 import "./VanCard.css";
-import { useState } from "react";
+
 import { Link } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 import { useAuth } from "../../services/AuthContext";
@@ -10,12 +10,10 @@ export default function VanCard({ van }: VansCardProps) {
   const { isFavorite, addToFavorites, removeFromFavorites } = useFavorites();
 
   const isConnected = role !== "anonymous";
-  const [favorite, setFavorite] = useState(isFavorite(van.id));
 
   const handleFavoriteToggle = async () => {
-    if (favorite) {
+    if (isFavorite(van.id)) {
       await removeFromFavorites(van.id);
-      setFavorite(false);
       toast("🚐 Van supprimé des favoris !", {
         position: "bottom-center",
         autoClose: 2000,
@@ -28,7 +26,6 @@ export default function VanCard({ van }: VansCardProps) {
       });
     } else {
       await addToFavorites(van.id);
-      setFavorite(true);
       toast("🚐 Van ajouté aux favoris !", {
         position: "bottom-center",
         autoClose: 2000,
@@ -53,10 +50,12 @@ export default function VanCard({ van }: VansCardProps) {
       {isConnected && (
         <button
           type="button"
-          className={favorite ? "delete-box" : "colored-box"}
+          className={isFavorite(van.id) ? "delete-box" : "colored-box"}
           onClick={handleFavoriteToggle}
         >
-          {favorite ? "Supprimer des favoris" : "Ajouter dans mes favoris"}
+          {isFavorite(van.id)
+            ? "Supprimer des favoris"
+            : "Ajouter dans mes favoris"}
         </button>
       )}
     </div>

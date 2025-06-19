@@ -38,7 +38,7 @@ import {
   getDetailsVan,
   getFavoriteVans,
   getGeneralRoadiesDetails,
-  getReservedVan,
+  getReservedVans,
   getRoadieAuth,
   getVansbyCompany,
 } from "./services/requests";
@@ -102,7 +102,7 @@ const router = createBrowserRouter([
         element: <RoadieInformation />,
         loader: async ({ params }) => {
           const company = await getGeneralRoadiesDetails(params.id);
-          const reservedVan = await getReservedVan;
+          const reservedVan = await getReservedVans();
           return { company, reservedVan };
         },
       },
@@ -120,7 +120,7 @@ const router = createBrowserRouter([
           }
 
           const vans = await getDetailsVan(params.id);
-          const reservedVan = await getReservedVan();
+          const reservedVan = await getReservedVans();
           return { vans, reservedVan };
         },
       },

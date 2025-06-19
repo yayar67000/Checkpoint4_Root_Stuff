@@ -11,8 +11,8 @@
     align-items: center;
     box-sizing: border-box;
     position: relative;
-    width: 190px;
-    height: 254px;
+    width: 11.875rem;
+    height: 15.875rem;
     border: 1px solid white;
     box-shadow: 0 0 0.5rem 0.2rem var(--brown);
     backdrop-filter: blur(6px);

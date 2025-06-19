@@ -1,7 +1,6 @@
 import "./ReservedVanCard.css";
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 import { useAuth } from "../../services/AuthContext";
 import { useReservedVans } from "../../services/ReservedVanContext";
@@ -17,6 +16,12 @@ export default function ReservedVanCard({
   const [endDate, setEndDate] = useState(reservedVan.end_date);
 
   const isConnected = role !== "anonymous";
+
+  const formatDate = (dateString: string) => {
+    if (!dateString) return "";
+    const [year, month, day] = dateString.split("T")[0].split("-");
+    return `${day}-${month}-${year}`;
+  };
 
   const handleEditClick = () => {
     setShowEditForm(true);
@@ -67,7 +72,7 @@ export default function ReservedVanCard({
   };
 
   const deleteReservation = async () => {
-    await removeFromReserved(reservedVan.van_id);
+    await removeFromReserved(reservedVan.id);
     toast("🚐 Van supprimé des réservations !", {
       position: "bottom-center",
       autoClose: 2000,
@@ -81,27 +86,34 @@ export default function ReservedVanCard({
   };
 
   return (
-    <div className="van_card_container">
-      <Link to={`/vanDetails/${reservedVan.van_id}`}>
-        <div className="van_card">
-          <img src={reservedVan.picture} alt={reservedVan.name} />
-          <h2>{reservedVan.name}</h2>
+    <div className="reserved_van_card_container">
+      <div className="reserved_van_card">
+        <img src={reservedVan.picture} alt={reservedVan.name} />
+        <h2>{reservedVan.name}</h2>
+        <div className="reservations_dates">
+          <p>Date du départ : {formatDate(reservedVan.start_date)}</p>
+          <p>Date de retour : {formatDate(reservedVan.end_date)}</p>
         </div>
-      </Link>
-      {isConnected && (
-        <div className="buttons_card_reservation">
-          <button
-            type="button"
-            className="delete-box"
-            onClick={deleteReservation}
-          />
-          <button
-            type="button"
-            className="edit-box"
-            onClick={handleEditClick}
-          />
-        </div>
-      )}
+        {isConnected && (
+          <div className="buttons_card_reservation">
+            <button
+              type="button"
+              className="delete-box"
+              onClick={deleteReservation}
+            >
+              Supprimer la réservation
+            </button>
+            <button
+              type="button"
+              className="edit-box"
+              onClick={handleEditClick}
+            >
+              Modifier la réservation
+            </button>
+          </div>
+        )}
+      </div>
+
       {showEditForm && (
         <form className="edit_form" onSubmit={handleSubmit}>
           <label>
