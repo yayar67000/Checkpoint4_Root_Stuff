@@ -10,6 +10,7 @@ import App from "./App";
 
 import { AuthProvider } from "./services/AuthContext";
 import { FavoriteProvider } from "./services/FavoriteContext";
+import { ReservedVanProvider } from "./services/ReservedVanContext";
 
 // Import pages
 import Companies from "./pages/Companies/Companies";
@@ -155,7 +156,9 @@ createRoot(rootElement).render(
   <StrictMode>
     <AuthProvider>
       <FavoriteProvider>
-        <RouterProvider router={router} />
+        <ReservedVanProvider>
+          <RouterProvider router={router} />
+        </ReservedVanProvider>
       </FavoriteProvider>
     </AuthProvider>
   </StrictMode>,

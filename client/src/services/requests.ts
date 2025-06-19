@@ -135,13 +135,6 @@ const addReservedVan = async ({
   );
 };
 
-const editReservedVan = async (reservedVanId: number) => {
-  return axios.put(
-    `${import.meta.env.VITE_API_URL}/api/reserved_van/${reservedVanId}`,
-    { withCredentials: true },
-  );
-};
-
 const deleteReservedVan = async (reservedVanId: number) => {
   return axios.delete(
     `${import.meta.env.VITE_API_URL}/api/reserved_van/${reservedVanId}`,
@@ -166,7 +159,6 @@ export {
   getFavoriteVans,
   addFavoriteVan,
   addReservedVan,
-  editReservedVan,
   removeFavoriteVan,
   deleteReservedVan,
 };

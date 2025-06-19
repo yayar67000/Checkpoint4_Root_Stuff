@@ -125,8 +125,11 @@ type VansCardProps = {
   isFavorite?: boolean;
   onAddFavorite?: (vanId: number) => Promise<void>;
   onRemoveFavorite?: (favoriteVanId: number) => Promise<void>;
+};
+type ReservedVansCardProps = {
+  reservedVan: ReservedVansData;
   isReserved?: boolean;
-  onAddReserved?: (vanId: number) => Promise<void>;
+  onAddReserved?: (reservedVanId: number) => Promise<void>;
   onRemoveReserved?: (reservedVanId: number) => Promise<void>;
 };
 
