@@ -5,8 +5,10 @@ import { useLoaderData } from "react-router-dom";
 import { useRevalidator } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
+import ReservedVanCard from "../../components/ReservedVanCard/ReservedVanCard";
 import VanCard from "../../components/VanCard/VanCard";
 import { useFavorites } from "../../services/FavoriteContext";
+import { useReservedVans } from "../../services/ReservedVanContext";
 
 export default function RoadieInformation() {
   const { revalidate } = useRevalidator();
@@ -16,6 +18,13 @@ export default function RoadieInformation() {
   };
 
   const { favoriteVans, addToFavorites, removeFromFavorites } = useFavorites();
+  const { reservedVans, isReserved, addToReserved, removeFromReserved } =
+    useReservedVans() as {
+      reservedVans: ReservedVansData[];
+      isReserved: (vanId: number) => boolean;
+      addToReserved: (vanId: number) => Promise<void>;
+      removeFromReserved: (vanId: number) => Promise<void>;
+    };
 
   const roadieToUpdate = {
     firstname: roadie.firstname,
@@ -255,6 +264,35 @@ export default function RoadieInformation() {
               <h2 className="title_CI">
                 Mes <strong>RESERVATIONS</strong>
               </h2>
+              <ul className="scroll-container-card">
+                {reservedVans && reservedVans.length > 0 ? (
+                  reservedVans.map((reservedVan) => (
+                    <li key={reservedVan.van_id} className="van_card_reserved">
+                      <ReservedVanCard
+                        reservedVan={{
+                          id: reservedVan.van_id,
+                          van_id: reservedVan.van_id,
+                          start_date: reservedVan.start_date,
+                          end_date: reservedVan.end_date,
+                          roadie_id: reservedVan.roadie_id,
+                          name: reservedVan.name,
+                          picture: reservedVan.picture,
+                          number_plate: reservedVan.number_plate,
+                          fuel: reservedVan.fuel,
+                          lbs: reservedVan.lbs,
+                          brand: reservedVan.brand,
+                          company_id: reservedVan.company_id,
+                        }}
+                        isReserved={isReserved(reservedVan.van_id)}
+                        onAddReserved={addToReserved}
+                        onRemoveReserved={removeFromReserved}
+                      />
+                    </li>
+                  ))
+                ) : (
+                  <li>Pas de van réservé</li>
+                )}
+              </ul>
             </>
           ) : null}
         </section>

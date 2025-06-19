@@ -102,7 +102,7 @@ router.delete(
 /* *****************RESERVED_VAN************************ */
 
 router.get(
-  "/api/reserved_van/:id",
+  "/api/reserved_van",
   authActions.verify,
   reservedVanActions.readByRoadie,
 );
