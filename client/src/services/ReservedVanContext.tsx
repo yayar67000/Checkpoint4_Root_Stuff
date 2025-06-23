@@ -3,6 +3,7 @@ import {
   addReservedVan,
   deleteReservedVan,
   getReservedVans,
+  updateReservedVan,
 } from "../services/requests";
 
 const ReservedContext = createContext<ReservedVanContextProps | undefined>(
@@ -51,6 +52,16 @@ export const ReservedVanProvider = ({
     }
   };
 
+  const updateReservation = async (
+    reservedVanId: number,
+    startDate: string,
+    endDate: string,
+  ) => {
+    await updateReservedVan(reservedVanId, startDate, endDate);
+    const updatedReserved = await getReservedVans();
+    setReservedVans(updatedReserved);
+  };
+
   const removeFromReserved = async (vanId: number) => {
     try {
       await deleteReservedVan(vanId);
@@ -63,7 +74,13 @@ export const ReservedVanProvider = ({
 
   return (
     <ReservedContext.Provider
-      value={{ reservedVans, isReserved, addToReserved, removeFromReserved }}
+      value={{
+        reservedVans,
+        isReserved,
+        addToReserved,
+        removeFromReserved,
+        updateReservation,
+      }}
     >
       {children}
     </ReservedContext.Provider>
