@@ -92,15 +92,34 @@ git config --global core.autocrlf false
 ### Structure des Dossiers
 
 ```plaintext
-my-project/
+rootstuff/
 │
 ├── server/
 │   ├── app/
 │   │   ├── modules/
 │   │   │   ├── item/
-│   │   │   │   ├── itemActions.ts
-│   │   │   │   └── itemRepository.ts
-│   │   │   └── ...
+│   │   │      ├── company
+│   │   │                 └── companyActions.ts
+│   │   │                 └── companyRepository.ts
+│   │   │      ├── continent
+│   │   │                 └── continentActions.ts
+│   │   │                 └── continentRepository.ts
+│   │   │      ├── country
+│   │   │                  └── countryActions.ts
+│   │   │                  └── countryRepository.ts
+│   │   │      ├── favorite_van
+│   │   │                 └── favoriteVanActions.ts
+│   │   │                 └── favoriteVanRepository.ts
+│   │   │            ├── reserved_van
+│   │   │                        └── reservedVanActions.ts
+│   │   │                        └── favoriteVanRepository.ts
+│   │   │      ├── roadies
+│   │   │                 └── roadiesActions.ts
+│   │   │                 └── roadiesRepository.ts
+│   │   │      └── van
+│   │   │                 └── vanActions.ts
+│   │   │                 └── vanRepository.ts
+│   │   │   
 │   │   ├── app.ts
 │   │   ├── main.ts
 │   │   └── router.ts
