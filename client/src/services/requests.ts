@@ -135,6 +135,18 @@ const addReservedVan = async ({
   );
 };
 
+const updateReservedVan = async (
+  reservedVanId: number,
+  startDate: string,
+  endDate: string,
+) => {
+  return axios.put(
+    `${import.meta.env.VITE_API_URL}/api/reserved_van/${reservedVanId}`,
+    { start_date: startDate, end_date: endDate },
+    { withCredentials: true },
+  );
+};
+
 const deleteReservedVan = async (reservedVanId: number) => {
   if (!reservedVanId) {
     alert("Impossible de trouver la réservation à supprimer !");
@@ -164,5 +176,6 @@ export {
   addFavoriteVan,
   addReservedVan,
   removeFavoriteVan,
+  updateReservedVan,
   deleteReservedVan,
 };

@@ -14,6 +14,11 @@ interface ReservedVanContextProps {
     endDate: string,
   ) => Promise<void>;
   removeFromReserved: (vanId: number) => Promise<void>;
+  updateReservation: (
+    reservedVanId: number,
+    startDate: string,
+    endDate: string,
+  ) => Promise<void>;
 }
 
 interface AuthProviderProps {

@@ -1,6 +1,6 @@
 import "./ReservedVanCard.css";
-import axios from "axios";
 import { useState } from "react";
+import { useRevalidator } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 import { useAuth } from "../../services/AuthContext";
 import { useReservedVans } from "../../services/ReservedVanContext";
@@ -9,21 +9,32 @@ export default function ReservedVanCard({
   reservedVan,
 }: ReservedVansCardProps) {
   const { role } = useAuth();
-  const { removeFromReserved } = useReservedVans();
+  const { removeFromReserved, updateReservation } = useReservedVans();
 
-  const [showEditForm, setShowEditForm] = useState(false);
-  const [startDate, setStartDate] = useState(reservedVan.start_date);
-  const [endDate, setEndDate] = useState(reservedVan.end_date);
-
-  const isConnected = role !== "anonymous";
-
-  const formatDate = (dateString: string) => {
+  const toDipslayDate = (dateString: string) => {
     if (!dateString) return "";
-    const [year, month, day] = dateString.split("T")[0].split("-");
+    const date = new Date(dateString);
+    const offset = date.getTimezoneOffset();
+    date.setMinutes(date.getMinutes() - offset);
+    const [year, month, day] = date.toISOString().split("T")[0].split("-");
     return `${day}-${month}-${year}`;
   };
 
+  // const toInputDate = (dateString: string) => {
+  //   if (!dateString) return "";
+  //   return dateString.split("T")[0];
+  // };
+
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const isConnected = role !== "anonymous";
+  const { revalidate } = useRevalidator();
+
   const handleEditClick = () => {
+    setStartDate(toDipslayDate(reservedVan.start_date));
+    setEndDate(toDipslayDate(reservedVan.end_date));
     setShowEditForm(true);
   };
 
@@ -32,16 +43,7 @@ export default function ReservedVanCard({
   ) => {
     event.preventDefault();
     try {
-      await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/reserved_van/${reservedVan.id}`,
-        {
-          start_date: startDate,
-          end_date: endDate,
-        },
-        {
-          withCredentials: true,
-        },
-      );
+      await await updateReservation(reservedVan.id, startDate, endDate);
       setShowEditForm(false);
       toast("🚐 Réservation modifiée avec succès !", {
         position: "bottom-center",
@@ -53,6 +55,7 @@ export default function ReservedVanCard({
         theme: "light",
         transition: Bounce,
       });
+      revalidate();
     } catch (error) {
       console.error(
         "Erreur lors de la modification de la réservation :",
@@ -91,8 +94,8 @@ export default function ReservedVanCard({
         <img src={reservedVan.picture} alt={reservedVan.name} />
         <h2>{reservedVan.name}</h2>
         <div className="reservations_dates">
-          <p>Date du départ : {formatDate(reservedVan.start_date)}</p>
-          <p>Date de retour : {formatDate(reservedVan.end_date)}</p>
+          <p>Date du départ : {toDipslayDate(reservedVan.start_date)}</p>
+          <p>Date de retour : {toDipslayDate(reservedVan.end_date)}</p>
         </div>
         {isConnected && (
           <div className="buttons_card_reservation">
@@ -135,11 +138,14 @@ export default function ReservedVanCard({
             />
           </label>
           <button
-            type="submit"
-            className="submit_edit"
+            type="button"
+            className="delete-box"
             onClick={() => setShowEditForm(false)}
           >
-            Modifier
+            Annuler
+          </button>
+          <button type="submit" className="colored-box">
+            Valider
           </button>
         </form>
       )}
