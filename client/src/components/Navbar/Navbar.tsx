@@ -97,6 +97,7 @@ export default function Navbar() {
       </Link>
       <div className="burgerContainer">
         <button
+          id="burgerButton"
           type="button"
           onClick={toggleMenu}
           className={`burgerButton ${isOpen ? "menuOpen" : ""}`}
@@ -110,6 +111,7 @@ export default function Navbar() {
         <ul className={`menuDroper ${isOpen ? "open" : ""}`}>
           {links
             .filter((link) => link.role.includes(role))
+            .filter((link) => link.name !== "Accueil")
             .map((link) => (
               <li key={link.name}>
                 <Link
@@ -126,6 +128,7 @@ export default function Navbar() {
             ))}
           {role !== "anonymous" ? (
             <button
+              id="disconnectButton"
               type="button"
               className={activeLink === "disconnect" ? "active" : ""}
               onClick={() => {
@@ -138,10 +141,11 @@ export default function Navbar() {
             </button>
           ) : (
             <button
+              id="loginButton"
               type="button"
-              className={activeLink === "se-connecter" ? "active" : ""}
+              className={activeLink === "connect" ? "active" : ""}
               onClick={() => {
-                setActiveLink("se-connecter");
+                setActiveLink("connect");
                 openModal();
                 setIsOpen(false);
               }}
@@ -160,12 +164,12 @@ export default function Navbar() {
             </li>
           ))}
         {role !== "anonymous" ? (
-          <button type="button" onClick={disconnect}>
+          <button id="unlog" type="button" onClick={disconnect}>
             Se déconnecter
           </button>
         ) : (
           <>
-            <button type="button" onClick={openModal}>
+            <button id="log" type="button" onClick={openModal}>
               Se connecter
             </button>
           </>

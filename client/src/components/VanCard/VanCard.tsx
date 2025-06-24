@@ -43,12 +43,17 @@ export default function VanCard({ van }: VansCardProps) {
     <div className="van_card_container">
       <Link to={`/vanDetails/${van.id}`}>
         <div className="van_card">
-          <img src={van.picture} alt={van.name} />
+          <img
+            src={van.picture}
+            alt={`van_picture
+            ${van.name}`}
+          />
           <h2>{van.name}</h2>
         </div>
       </Link>
       {isConnected && (
         <button
+          id="favorite-button"
           type="button"
           className={isFavorite(van.id) ? "delete-box" : "colored-box"}
           onClick={handleFavoriteToggle}

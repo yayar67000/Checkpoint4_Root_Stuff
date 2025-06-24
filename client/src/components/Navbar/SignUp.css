@@ -121,7 +121,7 @@
       margin: 1rem 0 1rem 0;
     }
     & .star {
-      color: red;
+      color: #b80000;
       font-size: 0.8rem;
     }
     & input {

@@ -4,7 +4,7 @@ export default function CompanyCard({ company }: CompaniesByCountryDataProps) {
   return (
     <>
       <div className="company_card">
-        <img src={company.logo} alt={company.name} />
+        <img src={company.logo} alt={`company_picture${company.name}`} />
         <h2>{company.name}</h2>
       </div>
     </>

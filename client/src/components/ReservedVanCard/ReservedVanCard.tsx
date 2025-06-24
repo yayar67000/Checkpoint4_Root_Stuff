@@ -20,11 +20,6 @@ export default function ReservedVanCard({
     return `${day}-${month}-${year}`;
   };
 
-  // const toInputDate = (dateString: string) => {
-  //   if (!dateString) return "";
-  //   return dateString.split("T")[0];
-  // };
-
   const [showEditForm, setShowEditForm] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -91,7 +86,10 @@ export default function ReservedVanCard({
   return (
     <div className="reserved_van_card_container">
       <div className="reserved_van_card">
-        <img src={reservedVan.picture} alt={reservedVan.name} />
+        <img
+          src={reservedVan.picture}
+          alt={`van_picture ${reservedVan.name}`}
+        />
         <h2>{reservedVan.name}</h2>
         <div className="reservations_dates">
           <p>Date du départ : {toDipslayDate(reservedVan.start_date)}</p>
@@ -100,6 +98,7 @@ export default function ReservedVanCard({
         {isConnected && (
           <div className="buttons_card_reservation">
             <button
+              id="delete-reservation-button"
               type="button"
               className="delete-box"
               onClick={deleteReservation}
@@ -107,6 +106,7 @@ export default function ReservedVanCard({
               Supprimer la réservation
             </button>
             <button
+              id="edit-reservation-button"
               type="button"
               className="edit-box"
               onClick={handleEditClick}
@@ -138,13 +138,14 @@ export default function ReservedVanCard({
             />
           </label>
           <button
+            id="cancel-edit-button"
             type="button"
             className="delete-box"
             onClick={() => setShowEditForm(false)}
           >
             Annuler
           </button>
-          <button type="submit" className="colored-box">
+          <button id="colored-box" type="submit" className="colored-box">
             Valider
           </button>
         </form>

@@ -172,6 +172,7 @@ export default function RoadieInformation() {
           />
 
           <button
+            id="back-button"
             type="button"
             className="light-box"
             onClick={() => setIsEditing(!isEditing)}
@@ -209,6 +210,7 @@ export default function RoadieInformation() {
           {location.pathname.endsWith("information") ? (
             <>
               <button
+                id="edit-button"
                 type="button"
                 className="edit-box"
                 onClick={() => setIsEditing(true)}
@@ -216,6 +218,7 @@ export default function RoadieInformation() {
                 Modifier mes informations
               </button>
               <button
+                id="delete-account-button"
                 type="button"
                 className="delete-box"
                 onClick={deleteAccount}
