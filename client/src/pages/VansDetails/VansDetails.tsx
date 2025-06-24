@@ -62,6 +62,7 @@ export default function VansDetails() {
         <p>Immatriculation : {vans.number_plate}</p>
         {!reservedVan && !isReserved ? (
           <button
+            id="reserve-button"
             type="button"
             className="colored-box"
             onClick={() => setShowModal(true)}
@@ -69,7 +70,12 @@ export default function VansDetails() {
             Réserver
           </button>
         ) : (
-          <button type="button" className="delete-box" onClick={handleCancel}>
+          <button
+            id="delete_box"
+            type="button"
+            className="delete-box"
+            onClick={handleCancel}
+          >
             Annuler la réservation
           </button>
         )}
@@ -97,10 +103,11 @@ export default function VansDetails() {
               />
             </label>
 
-            <button type="submit" className="colored-box">
+            <button id="colored-box" type="submit" className="colored-box">
               Valider
             </button>
             <button
+              id="cancel-reservation-button"
               type="button"
               onClick={() => setShowModal(false)}
               className="delete-box"
