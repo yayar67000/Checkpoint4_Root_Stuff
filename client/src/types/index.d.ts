@@ -135,16 +135,6 @@ type VansCardProps = {
   onAddFavorite?: (vanId: number) => Promise<void>;
   onRemoveFavorite?: (favoriteVanId: number) => Promise<void>;
 };
-type ReservedVansCardProps = {
-  reservedVan: ReservedVansData;
-  isReserved?: boolean;
-  onAddReserved?: (
-    reservedVanId: number,
-    startDate: string,
-    endDate: string,
-  ) => Promise<void>;
-  onRemoveReserved?: (reservedVanId: number) => Promise<void>;
-};
 
 interface ReservedVansData {
   id: number;
@@ -159,4 +149,16 @@ interface ReservedVansData {
   lbs: string;
   brand: string;
   company_id: number;
+  updated_at: string;
 }
+
+type ReservedVansCardProps = {
+  reservedVan: ReservedVansData;
+  isReserved?: boolean;
+  onAddReserved?: (
+    reservedVanId: number,
+    startDate: string,
+    endDate: string,
+  ) => Promise<void>;
+  onRemoveReserved?: (reservedVanId: number) => Promise<void>;
+};

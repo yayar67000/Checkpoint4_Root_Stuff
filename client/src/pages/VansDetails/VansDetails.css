@@ -22,6 +22,11 @@
     & img {
       border-radius: 8px;
     }
+
+    & p {
+      margin: 0rem 0.5rem 0.5rem 0.5rem;
+      color: var(--brown);
+    }
   }
   & .reservation_content {
     display: flex;

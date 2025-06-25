@@ -116,12 +116,16 @@ export default function VansDetails() {
     });
   };
 
-  const toDipslayDate = (dateString: string) => {
+  const toDisplayDate = (dateString: string, withTime = false) => {
     if (!dateString) return "";
     const date = new Date(dateString);
     const offset = date.getTimezoneOffset();
     date.setMinutes(date.getMinutes() - offset);
     const [year, month, day] = date.toISOString().split("T")[0].split("-");
+    if (withTime) {
+      const time = date.toISOString().split("T")[1].slice(0, 5);
+      return `${day}-${month}-${year} à ${time}`;
+    }
     return `${day}-${month}-${year}`;
   };
 
@@ -131,19 +135,45 @@ export default function VansDetails() {
       <article className="infos_vans">
         <img src={vans.picture} alt={vans.name} />
         <h2>{vans.name}</h2>
-        <p>Marque : {vans.brand}</p>
-        <p>Escence : {vans.fuel}</p>
-        <p>Poids: {vans.lbs}</p>
-        <p>Immatriculation : {vans.number_plate}</p>
+        <p>
+          <strong>Marque : </strong>
+          {vans.brand}
+        </p>
+        <p>
+          <strong>Escence : </strong>
+          {vans.fuel}
+        </p>
+        <p>
+          <strong>Poids: </strong>
+          {vans.lbs}
+        </p>
+        <p>
+          <strong>Immatriculation : </strong>
+          {vans.number_plate}
+        </p>
         {Array.isArray(reservedVan) && reservedVan.length > 0 ? (
           <p>
-            Réservé du {toDipslayDate(reservedVan[0]?.start_date)} au{" "}
-            {toDipslayDate(reservedVan[0]?.end_date)}
+            <strong>Réservé du </strong>
+            {toDisplayDate(reservedVan[0]?.start_date)} au{" "}
+            {toDisplayDate(reservedVan[0]?.end_date)}
           </p>
         ) : reservedVan?.start_date ? (
           <p>
-            Réservé du {toDipslayDate(reservedVan?.start_date)} au{" "}
-            {toDipslayDate(reservedVan?.end_date)}
+            <strong>Réservé du </strong>
+            {toDisplayDate(reservedVan?.start_date)} au{" "}
+            {toDisplayDate(reservedVan?.end_date)}
+          </p>
+        ) : null}
+        {Array.isArray(reservedVan) && reservedVan.length > 0 ? (
+          <p>
+            <strong>Dernière modification :</strong>{" "}
+            {toDisplayDate(reservedVan[0]?.updated_at, true)}
+          </p>
+        ) : reservedVan?.updated_at ? (
+          <p>
+            <strong>Dernière modification : </strong>
+
+            {toDisplayDate(reservedVan?.updated_at, true)}
           </p>
         ) : null}
         {!reservedVan && !isReserved ? (

@@ -38,6 +38,7 @@ declare global {
         van_id: number;
         start_date: string;
         end_date: string;
+        updated_at: string;
       };
     }
   }

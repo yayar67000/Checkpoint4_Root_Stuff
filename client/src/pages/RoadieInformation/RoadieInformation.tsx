@@ -276,6 +276,7 @@ export default function RoadieInformation() {
                           lbs: reservedVan.lbs,
                           brand: reservedVan.brand,
                           company_id: reservedVan.company_id,
+                          updated_at: reservedVan.updated_at,
                         }}
                         isReserved={true}
                         onAddReserved={addToReserved}

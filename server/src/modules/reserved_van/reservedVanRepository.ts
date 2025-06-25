@@ -8,6 +8,7 @@ type ReservedVan = {
   van_id: number;
   start_date: string;
   end_date: string;
+  updated_at: string;
 };
 
 type CreateReservedVanInput = {
@@ -15,6 +16,7 @@ type CreateReservedVanInput = {
   van_id: number;
   start_date: string;
   end_date: string;
+  updated_at: string;
 };
 
 class ReservedVanRepository {
@@ -58,6 +60,7 @@ class ReservedVanRepository {
           reserved_van.van_id,
           reserved_van.start_date,
           reserved_van.end_date,
+          reserved_van.updated_at,
           van.name,
           van.number_plate,
           van.picture,
@@ -84,7 +87,6 @@ class ReservedVanRepository {
 
   async checkVanAvailability(
     van_id: number,
-
     start_date: string,
     end_date: string,
   ) {
