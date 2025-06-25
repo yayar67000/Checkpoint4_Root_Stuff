@@ -160,3 +160,10 @@ label {
   outline: 2px solid var(--edit-blue);
   outline-offset: 4px;
 }
+
+a:focus-visible {
+  outline: 3px solid var(--edit-blue);
+  outline-offset: 4px;
+  border-radius: 8px;
+  z-index: 2;
+}
