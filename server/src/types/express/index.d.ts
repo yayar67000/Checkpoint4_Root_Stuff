@@ -22,6 +22,7 @@ declare global {
         password: string;
         role: string;
         favoriteVanId?: number;
+        firstname: string;
       };
       auth: {
         email: string;
@@ -30,6 +31,14 @@ declare global {
       };
       roadie: {
         id: number;
+      };
+      reserved_van: {
+        id: number;
+        roadies_id: number;
+        van_id: number;
+        start_date: string;
+        end_date: string;
+        updated_at: string;
       };
     }
   }

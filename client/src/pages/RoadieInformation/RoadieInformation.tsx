@@ -5,8 +5,10 @@ import { useLoaderData } from "react-router-dom";
 import { useRevalidator } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
+import ReservedVanCard from "../../components/ReservedVanCard/ReservedVanCard";
 import VanCard from "../../components/VanCard/VanCard";
 import { useFavorites } from "../../services/FavoriteContext";
+import { useReservedVans } from "../../services/ReservedVanContext";
 
 export default function RoadieInformation() {
   const { revalidate } = useRevalidator();
@@ -16,8 +18,7 @@ export default function RoadieInformation() {
   };
 
   const { favoriteVans, addToFavorites, removeFromFavorites } = useFavorites();
-
-  console.info("Données des vans favoris :", favoriteVans);
+  const { reservedVans, addToReserved, removeFromReserved } = useReservedVans();
 
   const roadieToUpdate = {
     firstname: roadie.firstname,
@@ -91,12 +92,9 @@ export default function RoadieInformation() {
       )
     ) {
       try {
-        await axios.delete(
-          `${import.meta.env.VITE_API_URL}/api/roadies/delete`,
-          {
-            withCredentials: true,
-          },
-        );
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/roadies/:id`, {
+          withCredentials: true,
+        });
         toast.success("Compte supprimé avec succès.", {
           position: "bottom-center",
           autoClose: 2000,
@@ -174,6 +172,7 @@ export default function RoadieInformation() {
           />
 
           <button
+            id="back-button"
             type="button"
             className="light-box"
             onClick={() => setIsEditing(!isEditing)}
@@ -211,15 +210,17 @@ export default function RoadieInformation() {
           {location.pathname.endsWith("information") ? (
             <>
               <button
+                id="edit-button"
                 type="button"
-                className="colored-box"
+                className="edit-box"
                 onClick={() => setIsEditing(true)}
               >
                 Modifier mes informations
               </button>
               <button
+                id="delete-account-button"
                 type="button"
-                className="cancel-box"
+                className="delete-box"
                 onClick={deleteAccount}
               >
                 Supprimer mon compte
@@ -231,10 +232,19 @@ export default function RoadieInformation() {
               <ul className="scroll-card-container">
                 {favoriteVans && favoriteVans.length > 0 ? (
                   favoriteVans.map((favoriteVan) => (
-                    <li key={favoriteVan.id} className="van_card_favorite">
+                    <li key={favoriteVan.van_id} className="van_card_favorite">
                       {" "}
                       <VanCard
-                        van={favoriteVan}
+                        van={{
+                          id: favoriteVan.van_id,
+                          name: favoriteVan.name,
+                          number_plate: favoriteVan.number_plate,
+                          picture: favoriteVan.picture,
+                          fuel: favoriteVan.fuel,
+                          lbs: favoriteVan.lbs,
+                          brand: favoriteVan.brand,
+                          company_id: favoriteVan.company_id,
+                        }}
                         isFavorite={true}
                         onAddFavorite={addToFavorites}
                         onRemoveFavorite={removeFromFavorites}
@@ -243,6 +253,39 @@ export default function RoadieInformation() {
                   ))
                 ) : (
                   <li>Pas de van sauvegardé</li>
+                )}
+              </ul>
+              <h2 className="title_CI">
+                Mes <strong>RESERVATIONS</strong>
+              </h2>
+              <ul className="scroll-container-card">
+                {reservedVans && reservedVans.length > 0 ? (
+                  reservedVans.map((reservedVan) => (
+                    <li key={reservedVan.id} className="van_card_reserved">
+                      <ReservedVanCard
+                        reservedVan={{
+                          id: reservedVan.id,
+                          van_id: reservedVan.van_id,
+                          start_date: reservedVan.start_date,
+                          end_date: reservedVan.end_date,
+                          roadie_id: reservedVan.roadie_id,
+                          name: reservedVan.name,
+                          picture: reservedVan.picture,
+                          number_plate: reservedVan.number_plate,
+                          fuel: reservedVan.fuel,
+                          lbs: reservedVan.lbs,
+                          brand: reservedVan.brand,
+                          company_id: reservedVan.company_id,
+                          updated_at: reservedVan.updated_at,
+                        }}
+                        isReserved={true}
+                        onAddReserved={addToReserved}
+                        onRemoveReserved={removeFromReserved}
+                      />
+                    </li>
+                  ))
+                ) : (
+                  <li>Pas de van réservé</li>
                 )}
               </ul>
             </>

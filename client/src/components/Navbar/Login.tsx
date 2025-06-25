@@ -32,6 +32,7 @@ export default function Login({ isOpen, onClose }: LoginRoadieProps) {
   const togglePassword = () => {
     setShowPassword(!showPassword);
   };
+  const { setUserName } = useAuth();
 
   const showIconPassword = showPassword ? icon.visible : icon.notVisible;
 
@@ -53,7 +54,8 @@ export default function Login({ isOpen, onClose }: LoginRoadieProps) {
         })
         .then((response) => {
           setRole(response.data.role);
-          console.info(response.data.role);
+          setUserName(response.data.name);
+          console.info(response.data.role, response.data.name);
           if (response.data.role === "roadie") {
             toast.success("Connexion validée !", {
               position: "bottom-center",
@@ -95,6 +97,7 @@ export default function Login({ isOpen, onClose }: LoginRoadieProps) {
             Email<span>*</span>
           </label>
           <input
+            id="email-login"
             type="email"
             name="email"
             value={credentials.email}
@@ -106,6 +109,7 @@ export default function Login({ isOpen, onClose }: LoginRoadieProps) {
           </label>
           <div className="password_input">
             <input
+              id="password_login"
               className="input_password"
               type={showPassword ? "text" : "password"}
               name="password"
@@ -114,9 +118,15 @@ export default function Login({ isOpen, onClose }: LoginRoadieProps) {
               required
             />
             <button
+              id="show_password"
               type="button"
               onClick={togglePassword}
               className="show_password"
+              aria-label={
+                showPassword
+                  ? "Masquer le mot de passe"
+                  : "Afficher le mot de passe"
+              }
             >
               <SvgIcons
                 path={showIconPassword.path}
@@ -126,15 +136,21 @@ export default function Login({ isOpen, onClose }: LoginRoadieProps) {
             </button>
           </div>
           <div className="login_buttons">
-            <button className="colored-box" type="submit">
+            <button id="colored-box" className="colored-box" type="submit">
               Se connecter
             </button>
-            <button className="cancel-box" type="button" onClick={onClose}>
+            <button
+              id="colored-box"
+              className="delete-box"
+              type="button"
+              onClick={onClose}
+            >
               Annuler
             </button>
             <div className="register_content">
               <p className="register_text">Pas encore de compte ?</p>
               <button
+                id="light-box"
                 className="light-box"
                 type="button"
                 onClick={() => setIsSignUp(true)}

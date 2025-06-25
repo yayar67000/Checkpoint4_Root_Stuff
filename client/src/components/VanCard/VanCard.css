@@ -11,8 +11,8 @@
     align-items: center;
     box-sizing: border-box;
     position: relative;
-    width: 190px;
-    height: 254px;
+    width: 11.875rem;
+    height: 15.875rem;
     border: 1px solid white;
     box-shadow: 0 0 0.5rem 0.2rem var(--brown);
     backdrop-filter: blur(6px);
@@ -31,10 +31,11 @@
       position: absolute;
       object-fit: cover;
       margin: 0;
-      top: 50%;
-      height: 50%;
+      top: 48%;
       color: var(--light);
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.568);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
     }
 
     & img {
@@ -44,7 +45,7 @@
       border-radius: 17px;
     }
 
-    & .cancel-box,
+    & .delete-box,
     .light-box,
     .colored-box {
       text-decoration: none;

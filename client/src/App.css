@@ -14,8 +14,10 @@
   --brown: rgb(139, 35, 35);
   --light: #fff;
   --message-error: red;
+  --edit-blue: #1976d2;
 }
 
+html,
 body {
   font-family: Verdana, sans-serif;
   font-optical-sizing: auto;
@@ -25,11 +27,14 @@ body {
   line-height: 1;
   color: var(--primary);
   margin: 0;
+  height: 100%;
+  width: 100%;
 }
 
 main {
   display: flex;
   flex: 1;
+  min-height: 70vh;
 }
 
 .messageError {
@@ -49,6 +54,12 @@ h3 {
   color: var(--brown);
 }
 
+p {
+  font-family: "Roboto", serif;
+  font-optical-sizing: auto;
+  color: var(--primary);
+}
+
 label {
   color: var(--brown);
   font-weight: bold;
@@ -64,13 +75,16 @@ label {
   outline-offset: 2px;
 }
 
-.card {
+.card_item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   box-sizing: border-box;
-  width: 190px;
-  height: 254px;
-  background: rgba(217, 217, 217, 0.58);
+  position: relative;
+  width: 11.875rem;
+  height: 15.875rem;
   border: 1px solid white;
-  box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 0 0.5rem 0.2rem var(--brown);
   backdrop-filter: blur(6px);
   border-radius: 17px;
   text-align: center;
@@ -82,14 +96,32 @@ label {
   user-select: none;
   font-weight: bolder;
   color: black;
+  margin: 3rem 0 3rem 0;
+  & h2 {
+    position: absolute;
+    object-fit: cover;
+    margin: 0;
+    top: 48%;
+    color: var(--light);
+    background-color: rgba(0, 0, 0, 0.568);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+  }
+
+  & img {
+    width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    border-radius: 17px;
+  }
 }
 
-.card:hover {
-  border: 1px solid black;
+.company_card:hover {
+  border: 1px solid var(--brown);
   transform: scale(1.05);
 }
 
-.card:active {
+.company_card:active {
   transform: scale(0.95) rotateZ(1.7deg);
 }
 
@@ -117,14 +149,42 @@ label {
   border-radius: 5px;
 }
 
-.cancel-box {
+.delete-box {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--light);
-  color: var(--brown);
+  background-color: var(--message-error);
+  color: var(--primary);
   padding: 0.5rem 1rem;
   text-align: center;
   border-radius: 5px;
   border-color: var(--brown);
+}
+
+.edit-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--edit-blue);
+  color: var(--primary);
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border-radius: 5px;
+  border-color: var(--edit-blue);
+}
+
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--edit-blue);
+  outline-offset: 4px;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--edit-blue);
+  outline-offset: 4px;
+  border-radius: 8px;
+  z-index: 2;
 }

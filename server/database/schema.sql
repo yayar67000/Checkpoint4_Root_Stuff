@@ -50,6 +50,17 @@ CREATE TABLE favorite_van (
   FOREIGN KEY (van_id) REFERENCES van(id)
 );
 
+CREATE TABLE reserved_van (
+  id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  roadies_id INT UNSIGNED NOT NULL,
+  van_id INT UNSIGNED NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  FOREIGN KEY (roadies_id) REFERENCES roadies(id),
+  FOREIGN KEY (van_id) REFERENCES van(id),
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 -- Insertion des continents
 INSERT INTO continent (name, picture) VALUES
 ("Europe", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSddRRftxTT19zU9gUI0GrZcbbme16COCdqg&s"),

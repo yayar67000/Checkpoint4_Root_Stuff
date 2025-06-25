@@ -5,6 +5,22 @@ interface FavoriteContextProps {
   removeFromFavorites: (vanId: number) => Promise<void>;
 }
 
+interface ReservedVanContextProps {
+  reservedVans: ReservedVansData[];
+  isReserved: (vanId: number) => boolean;
+  addToReserved: (
+    vanId: number,
+    startDate: string,
+    endDate: string,
+  ) => Promise<void>;
+  removeFromReserved: (vanId: number) => Promise<void>;
+  updateReservation: (
+    reservedVanId: number,
+    startDate: string,
+    endDate: string,
+  ) => Promise<void>;
+}
+
 interface AuthProviderProps {
   children: ReactNode;
 }
@@ -12,6 +28,8 @@ interface AuthProviderProps {
 interface AuthProps {
   role: string;
   setRole: (role: string) => void;
+  userName: string;
+  setUserName: (userName: string) => void;
 }
 
 type LoginRoadieProps = {
@@ -98,13 +116,6 @@ interface VansByCompanyData {
   company_id: number;
 }
 
-type VansCardProps = {
-  van: VansData;
-  isFavorite: boolean;
-  onAddFavorite: (vanId: number) => Promise<void>;
-  onRemoveFavorite: (favoriteVanId: number) => Promise<void>;
-};
-
 interface FavoriteVansData {
   id: number;
   roadie_id: number;
@@ -117,3 +128,37 @@ interface FavoriteVansData {
   brand: string;
   company_id: number;
 }
+
+type VansCardProps = {
+  van: VansData;
+  isFavorite?: boolean;
+  onAddFavorite?: (vanId: number) => Promise<void>;
+  onRemoveFavorite?: (favoriteVanId: number) => Promise<void>;
+};
+
+interface ReservedVansData {
+  id: number;
+  start_date: string;
+  end_date: string;
+  roadie_id: number;
+  van_id: number;
+  name: string;
+  picture: string;
+  number_plate: string;
+  fuel: string;
+  lbs: string;
+  brand: string;
+  company_id: number;
+  updated_at: string;
+}
+
+type ReservedVansCardProps = {
+  reservedVan: ReservedVansData;
+  isReserved?: boolean;
+  onAddReserved?: (
+    reservedVanId: number,
+    startDate: string,
+    endDate: string,
+  ) => Promise<void>;
+  onRemoveReserved?: (reservedVanId: number) => Promise<void>;
+};

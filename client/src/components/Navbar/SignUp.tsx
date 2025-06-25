@@ -101,6 +101,12 @@ export default function SignUp({ isOpen, onClose }: LoginRoadieProps) {
     }
   };
 
+  const isStrongPassword = (password: string) => {
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return strongPasswordRegex.test(password);
+  };
+
   return (
     <dialog className="dialog_signup" open={isOpen}>
       {isSignIn ? (
@@ -111,7 +117,8 @@ export default function SignUp({ isOpen, onClose }: LoginRoadieProps) {
           <div className="register_content">
             <p className="register_text">Déjà inscrit ?</p>
             <button
-              className="light-box"
+              id="sign-in-button"
+              className="colored-box"
               type="button"
               onClick={() => setIsSignIn(true)}
             >
@@ -169,14 +176,20 @@ export default function SignUp({ isOpen, onClose }: LoginRoadieProps) {
                 value={credentials.password}
                 onChange={handleChange}
                 aria-invalid="false"
-                aria-describedby="password-error-password"
                 placeholder="Votre mot de passe"
                 required
+                minLength={8}
               />
               <button
+                id="show_password"
                 type="button"
                 onClick={togglePassword}
                 className="show_password"
+                aria-label={
+                  showPassword
+                    ? "Masquer le mot de passe"
+                    : "Afficher le mot de passe"
+                }
               >
                 <SvgIcons
                   path={showIconPassword.path}
@@ -185,8 +198,11 @@ export default function SignUp({ isOpen, onClose }: LoginRoadieProps) {
                 />
               </button>
             </div>
-            {credentials.password.length >= 8 ? "✅" : "❌"}{" "}
-            {`Longueur : ${credentials.password.length} >= 8`}
+            {isStrongPassword(credentials.password) ? "✅" : "❌"}
+            <p id="passwordHelp">
+              8 caractères minimum, au moins une majuscule, une minuscule, un
+              chiffre et un caractère spécial.
+            </p>
             <label htmlFor="confirmPassword">
               Confirmez votre mot de passe<span className="star"> *</span>
             </label>
@@ -194,17 +210,24 @@ export default function SignUp({ isOpen, onClose }: LoginRoadieProps) {
               <input
                 className="input_password"
                 type={confirmPassword ? "text" : "password"}
-                id="password_confirmation"
+                id="confirmPassword"
                 name="password_confirmation"
                 value={credentials.password_confirmation}
                 onChange={handleChange}
                 placeholder="Confirmez votre mot de passe"
+                minLength={8}
                 required
               />
               <button
+                id="show_password"
                 type="button"
                 onClick={toggleConfirmPassword}
                 className="show_password"
+                aria-label={
+                  showPassword
+                    ? "Masquer le mot de passe"
+                    : "Afficher le mot de passe"
+                }
               >
                 <SvgIcons
                   path={showIconConfirmPassword.path}
@@ -218,7 +241,7 @@ export default function SignUp({ isOpen, onClose }: LoginRoadieProps) {
                 ✅ Les mots de passe correspondent
               </span>
             ) : (
-              <span style={{ color: "red" }}>
+              <span style={{ color: " #b80000" }}>
                 ❌ Les mots de passe ne correspondent pas
               </span>
             )}
@@ -234,7 +257,12 @@ export default function SignUp({ isOpen, onClose }: LoginRoadieProps) {
                 <span className="star"> *</span>
               </p>
             </label>
-            <button type="submit" className="colored-box" disabled={!checked}>
+            <button
+              id="colored-box"
+              type="submit"
+              className="colored-box"
+              disabled={!checked}
+            >
               Créer un compte
             </button>
           </div>

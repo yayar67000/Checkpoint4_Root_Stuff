@@ -47,10 +47,10 @@ class roadiesRepository {
     return rows[0] as Roadies;
   }
 
-  async readByEmailWithPassword(email: string) {
+  async readByEmailWithPassword(email: string, firstname: string) {
     const [rows] = await databaseClient.query<Rows>(
       "select * from roadies where email = ?",
-      [email],
+      [email, firstname],
     );
 
     return rows[0] as Roadies;

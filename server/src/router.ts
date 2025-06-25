@@ -8,12 +8,14 @@ const router = express.Router();
 
 // Define item-related routes
 import authActions from "./middlewares/authActions";
+import formReservedVan from "./middlewares/formReservedVan";
 import formRoadies from "./middlewares/formRoadies";
 import formVan from "./middlewares/formVan";
 import companyActions from "./modules/company/companyActions";
 import continentActions from "./modules/continent/continentActions";
 import countryActions from "./modules/country/countryActions";
 import favoriteVanActions from "./modules/favorite_van/favoriteVanActions";
+import reservedVanActions from "./modules/reserved_van/reservedVanActions";
 import roadiesActions from "./modules/roadies/roadiesActions";
 import vanActions from "./modules/van/vanActions";
 
@@ -95,6 +97,33 @@ router.delete(
   "/api/favorite_van/:id",
   authActions.verify,
   favoriteVanActions.destroyFavoriteVan,
+);
+
+/* *****************RESERVED_VAN************************ */
+
+router.get(
+  "/api/reserved_van",
+  authActions.verify,
+  reservedVanActions.readByRoadie,
+);
+
+router.post(
+  "/api/reserved_van",
+  authActions.verify,
+  reservedVanActions.addReservedVan,
+);
+
+router.put(
+  "/api/reserved_van/:id",
+  authActions.verify,
+  formReservedVan.validate,
+  reservedVanActions.edit,
+);
+
+router.delete(
+  "/api/reserved_van/:id",
+  authActions.verify,
+  reservedVanActions.destroyReservedVan,
 );
 
 export default router;

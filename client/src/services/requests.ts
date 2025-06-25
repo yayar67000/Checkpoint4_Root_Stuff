@@ -91,7 +91,6 @@ const getFavoriteVans = () => {
 };
 
 const addFavoriteVan = async (vanId: number) => {
-  console.info("Données envoyées :", { van_id: vanId });
   return axios.post(
     `${import.meta.env.VITE_API_URL}/api/favorite_van`,
     { van_id: vanId },
@@ -106,6 +105,59 @@ const removeFavoriteVan = async (favoriteVanId: number) => {
   );
 };
 
+const getReservedVans = () => {
+  return axios
+    .get(`${import.meta.env.VITE_API_URL}/api/reserved_van`, {
+      withCredentials: true,
+    })
+    .then((response) => response.data || [])
+    .catch((error) => console.error(error));
+};
+
+const getReservedVanById = (van_id: number) => {
+  return axios
+    .get(`${import.meta.env.VITE_API_URL}/api/reserved_van/${van_id}`, {
+      withCredentials: true,
+    })
+    .then((response) => response.data || [])
+    .catch((error) => console.error(error));
+};
+
+const addReservedVan = async ({
+  van_id,
+  start_date,
+  end_date,
+}: { van_id: number; start_date: string; end_date: string }) => {
+  return axios.post(
+    `${import.meta.env.VITE_API_URL}/api/reserved_van`,
+    { van_id, start_date, end_date },
+    { withCredentials: true },
+  );
+};
+
+const updateReservedVan = async (
+  reservedVanId: number,
+  startDate: string,
+  endDate: string,
+) => {
+  return axios.put(
+    `${import.meta.env.VITE_API_URL}/api/reserved_van/${reservedVanId}`,
+    { start_date: startDate, end_date: endDate },
+    { withCredentials: true },
+  );
+};
+
+const deleteReservedVan = async (reservedVanId: number) => {
+  if (!reservedVanId) {
+    alert("Impossible de trouver la réservation à supprimer !");
+    return;
+  }
+  return axios.delete(
+    `${import.meta.env.VITE_API_URL}/api/reserved_van/${reservedVanId}`,
+    { withCredentials: true },
+  );
+};
+
 export {
   getAllCountries,
   getAllVans,
@@ -116,9 +168,14 @@ export {
   getVansbyCompany,
   getDetailsVan,
   getAllCompanies,
+  getReservedVanById,
   getRoadieAuth,
+  getReservedVans,
   getGeneralRoadiesDetails,
   getFavoriteVans,
   addFavoriteVan,
+  addReservedVan,
   removeFavoriteVan,
+  updateReservedVan,
+  deleteReservedVan,
 };

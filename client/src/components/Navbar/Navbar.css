@@ -26,9 +26,9 @@ nav {
     font-size: 2rem;
     text-decoration: none;
     z-index: 1;
-    color: var(--light);
+    color: var(--primary);
     font-weight: bold;
-    text-shadow: 2px 3px 3px var(--brown);
+    text-shadow: 2px 3px 3px var(--light);
   }
   & .background_nav_img {
     position: absolute;
@@ -43,7 +43,7 @@ nav {
     z-index: 2;
     display: flex;
   }
-  & .burgerButton {
+  & #burgerButton {
     cursor: pointer;
     background: none;
     border: none;
@@ -67,10 +67,12 @@ nav {
     z-index: 3;
     transform-origin: center;
     color: var(--light);
+    background-color: rgba(139, 92, 42, 0.15);
   }
 
   & .close {
     color: var(--light);
+    background-color: rgba(139, 92, 42, 0.15);
   }
 
   & .menuDroper {
@@ -171,7 +173,7 @@ nav {
       cursor: pointer;
       margin-right: 1rem;
       & button {
-        background: none;
+        background-color: rgba(139, 92, 42, 0.15);
         font-weight: bold;
         z-index: 2;
         color: var(--light);
@@ -186,16 +188,20 @@ nav {
       & a {
         text-decoration: none;
         cursor: pointer;
-        color: var(--light);
+        color: var(--primary);
         font-size: 1.2rem;
         font-weight: bold;
         transition: color 0.3s ease, font-weight 0.3s ease;
-        text-shadow: 2px 3px 3px var(--brown);
+        text-shadow: 2px 2px 2px var(--light);
+        background-color: rgba(139, 92, 42, 0.15);
+        border-radius: 18px;
+        padding: 0.5rem 1rem;
       }
 
       & a:hover {
+        color: var(--light);
         -webkit-text-stroke: 1px var(--brown);
-        text-shadow: 0 0 8px var(--brown);
+        text-shadow: 0 0 8px var(--light);
       }
     }
   }

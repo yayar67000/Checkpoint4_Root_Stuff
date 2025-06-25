@@ -10,6 +10,7 @@ import App from "./App";
 
 import { AuthProvider } from "./services/AuthContext";
 import { FavoriteProvider } from "./services/FavoriteContext";
+import { ReservedVanProvider } from "./services/ReservedVanContext";
 
 // Import pages
 import Companies from "./pages/Companies/Companies";
@@ -37,6 +38,7 @@ import {
   getDetailsVan,
   getFavoriteVans,
   getGeneralRoadiesDetails,
+  getReservedVans,
   getRoadieAuth,
   getVansbyCompany,
 } from "./services/requests";
@@ -100,7 +102,8 @@ const router = createBrowserRouter([
         element: <RoadieInformation />,
         loader: async ({ params }) => {
           const company = await getGeneralRoadiesDetails(params.id);
-          return company;
+          const reservedVan = await getReservedVans();
+          return { company, reservedVan };
         },
       },
       {
@@ -111,7 +114,15 @@ const router = createBrowserRouter([
       {
         path: "/vanDetails/:id",
         element: <VansDetails />,
-        loader: ({ params }) => getDetailsVan(params.id),
+        loader: async ({ params }) => {
+          if (!params.id) {
+            throw new Error("L'id du van est manquant !");
+          }
+
+          const vans = await getDetailsVan(params.id);
+          const reservedVan = await getReservedVans();
+          return { vans, reservedVan };
+        },
       },
       {
         path: "/roadies/information",
@@ -145,7 +156,9 @@ createRoot(rootElement).render(
   <StrictMode>
     <AuthProvider>
       <FavoriteProvider>
-        <RouterProvider router={router} />
+        <ReservedVanProvider>
+          <RouterProvider router={router} />
+        </ReservedVanProvider>
       </FavoriteProvider>
     </AuthProvider>
   </StrictMode>,
