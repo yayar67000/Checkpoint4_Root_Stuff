@@ -1,5 +1,3 @@
-import "./CompanyCard.css";
-
 export default function CompanyCard({ company }: CompaniesByCountryDataProps) {
   return (
     <>

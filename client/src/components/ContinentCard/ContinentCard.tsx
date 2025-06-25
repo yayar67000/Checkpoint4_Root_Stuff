@@ -1,5 +1,3 @@
-import "./ContinentCard.css";
-
 export default function ContinentCard({ continent }: ContinentDataProps) {
   return (
     <>
