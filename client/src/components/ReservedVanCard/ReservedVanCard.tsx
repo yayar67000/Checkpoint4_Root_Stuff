@@ -11,12 +11,16 @@ export default function ReservedVanCard({
   const { role } = useAuth();
   const { removeFromReserved, updateReservation } = useReservedVans();
 
-  const toDipslayDate = (dateString: string) => {
+  const toDisplayDate = (dateString: string, withTime = false) => {
     if (!dateString) return "";
     const date = new Date(dateString);
     const offset = date.getTimezoneOffset();
     date.setMinutes(date.getMinutes() - offset);
     const [year, month, day] = date.toISOString().split("T")[0].split("-");
+    if (withTime) {
+      const time = date.toISOString().split("T")[1].slice(0, 5);
+      return `${day}-${month}-${year} à ${time}`;
+    }
     return `${day}-${month}-${year}`;
   };
 
@@ -28,8 +32,8 @@ export default function ReservedVanCard({
   const { revalidate } = useRevalidator();
 
   const handleEditClick = () => {
-    setStartDate(toDipslayDate(reservedVan.start_date));
-    setEndDate(toDipslayDate(reservedVan.end_date));
+    setStartDate(toDisplayDate(reservedVan.start_date));
+    setEndDate(toDisplayDate(reservedVan.end_date));
     setShowEditForm(true);
   };
 
@@ -83,6 +87,8 @@ export default function ReservedVanCard({
     });
   };
 
+  console.info("reservedVan.updated_at", reservedVan.updated_at);
+
   return (
     <div className="reserved_van_card_container">
       <div className="reserved_van_card">
@@ -92,8 +98,18 @@ export default function ReservedVanCard({
         />
         <h2>{reservedVan.name}</h2>
         <div className="reservations_dates">
-          <p>Date du départ : {toDipslayDate(reservedVan.start_date)}</p>
-          <p>Date de retour : {toDipslayDate(reservedVan.end_date)}</p>
+          <p>
+            <strong>Date du départ : </strong>
+            {toDisplayDate(reservedVan.start_date)}
+          </p>
+          <p>
+            <strong>Date de retour : </strong>
+            {toDisplayDate(reservedVan.end_date)}
+          </p>
+          <p>
+            <strong>Dernière modification : </strong>
+            {toDisplayDate(reservedVan.updated_at, true)}
+          </p>
         </div>
         {isConnected && (
           <div className="buttons_card_reservation">

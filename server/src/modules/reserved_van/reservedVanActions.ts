@@ -43,6 +43,7 @@ const edit: RequestHandler = async (req, res, next) => {
       van_id: req.body.van_id,
       start_date: req.body.start_date,
       end_date: req.body.end_date,
+      updated_at: req.body.updated_at,
     };
     const affectedRows = await reservedVanRepository.update(editReservedVan);
     if (affectedRows === 0) {
@@ -58,7 +59,7 @@ const edit: RequestHandler = async (req, res, next) => {
 const addReservedVan: RequestHandler = async (req, res, next) => {
   try {
     const roadies_id = req.roadie.id;
-    const { van_id, start_date, end_date } = req.body;
+    const { van_id, start_date, end_date, updated_at } = req.body;
 
     if (!van_id) {
       res.status(400).json({ error: "van_id est requis" });
@@ -73,7 +74,13 @@ const addReservedVan: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    const newReservedVan = { roadies_id, van_id, start_date, end_date };
+    const newReservedVan = {
+      roadies_id,
+      van_id,
+      start_date,
+      end_date,
+      updated_at,
+    };
     const insertId = await reservedVanRepository.create(newReservedVan);
 
     res.status(201).json({ insertId });
