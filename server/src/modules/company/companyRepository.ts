@@ -38,10 +38,10 @@ class companyRepository {
     return rows as Company[];
   }
 
-  async ReadAllByCountry(id: number) {
+  async ReadAllByCountry(countryId: number) {
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT company.* FROM company JOIN country ON company.country_id = country.id WHERE company.country_id = ? GROUP BY company.id",
-      [id],
+      "SELECT company.* FROM company JOIN country ON company.country_id = country.id WHERE country_id = ? GROUP BY company.id",
+      [countryId],
     );
     return rows as Company[];
   }
