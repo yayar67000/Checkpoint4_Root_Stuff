@@ -83,5 +83,11 @@
         max-width: 66.625rem;
       }
     }
+
+    & .reservation_content {
+      width: 100%;
+      max-width: 66.625rem;
+      padding: 2rem;
+    }
   }
 }
