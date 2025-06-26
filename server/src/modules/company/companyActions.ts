@@ -12,8 +12,8 @@ const browse: RequestHandler = async (req, res, next) => {
 
 const browseByCountry: RequestHandler = async (req, res, next) => {
   try {
-    const countryID = Number(req.params.id);
-    const company = await companyRepository.ReadAllByCountry(countryID);
+    const countryId = Number(req.params.id);
+    const company = await companyRepository.ReadAllByCountry(countryId);
     res.json(company);
   } catch (err) {
     next(err);
