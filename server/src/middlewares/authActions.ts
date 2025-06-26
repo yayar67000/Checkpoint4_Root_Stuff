@@ -43,9 +43,10 @@ const login: RequestHandler = async (req, res, next) => {
       }
 
       const token = await jwt.sign(payload, process.env.APP_SECRET, {
-        expiresIn: "1y",
+        expiresIn: "10m",
       });
       res.cookie("auth", token).send({
+        maxAge: 10 * 60 * 1000,
         message: "Utilisateur connecté",
         role: req.user.role,
         name: req.user.firstname,
@@ -107,6 +108,13 @@ const verify: RequestHandler = async (req, res, next) => {
     if (resultPayload.role === "roadie") {
       req.roadie = { id: resultPayload.id };
     }
+
+    res.cookie("auth", auth, {
+      maxAge: 10 * 60 * 1000,
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+    });
 
     next();
   } catch (error) {
