@@ -104,6 +104,10 @@ if (fs.existsSync(clientBuildPath)) {
   });
 }
 
+app.get("/", (req, res) => {
+  res.send("Hello from Railway! 🚀");
+});
+
 /* ************************************************************************* */
 
 // Middleware for Error Logging
