@@ -105,7 +105,7 @@ if (fs.existsSync(clientBuildPath)) {
 }
 
 app.get("/", (req, res) => {
-  res.send("Hello from Railway! 🚀");
+  res.send("API RootStuff backend is running! 🎸");
 });
 
 /* ************************************************************************* */
