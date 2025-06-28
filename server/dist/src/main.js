@@ -13,6 +13,9 @@ require("../database/checkConnection");
 const app_1 = __importDefault(require("./app"));
 // Get the port from the environment variables
 const port = process.env.PORT || 8080
+if (!port) {
+  throw new Error("PORT is not defined in environment variables.");
+}
 // Start the server and listen on the specified port
 app_1.default
     .listen(port, () => {
