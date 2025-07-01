@@ -12,6 +12,8 @@ const client = mysql.createPool({
   database: DB_NAME,
 });
 
+console.info(`✅ Connexion BDD : ${DB_USER}@${DB_HOST}:${DB_PORT}/${DB_NAME}`);
+
 // Ready to export
 export default client;
 

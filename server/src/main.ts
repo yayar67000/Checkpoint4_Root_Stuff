@@ -11,9 +11,7 @@ import app from "./app";
 
 // Get the port from the environment variables
 
-const isDevelopment = process.env.NODE_ENV;
-
-const port = isDevelopment ? process.env.APP_PORT : process.env.PORT;
+const port = process.env.PORT || process.env.APP_PORT || 3000;
 
 // Start the server and listen on the specified port
 app
