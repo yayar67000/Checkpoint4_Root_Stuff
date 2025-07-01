@@ -10,7 +10,12 @@ import "../database/checkConnection";
 import app from "./app";
 
 // Get the port from the environment variables
-const port = process.env.PORT;
+
+const isDevelopment = process.env.NODE_ENV;
+
+const port = isDevelopment
+  ? process.env.APP_PORT // Default to 3000 for development
+  : process.env.PORT; // Default to 10000 for production
 
 // Start the server and listen on the specified port
 app

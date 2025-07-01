@@ -28,15 +28,19 @@ if (process.env.CLIENT_URL != null) {
 }
 
 // If you need to allow extra origins, you can add something like this:
+const allowedOrigins = [
+  "https://rootstuff.netlify.app",
+  process.env.CLIENT_URL || "http://localhost:3000", // Default to localhost for development
+];
 
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//     credentials: true,
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//   }),
-// );
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  }),
+);
 
 // With ["http://mysite.com", "http://another-domain.com"]
 // to be replaced with an array of your trusted origins
