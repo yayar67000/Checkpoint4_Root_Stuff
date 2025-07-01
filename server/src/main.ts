@@ -13,9 +13,7 @@ import app from "./app";
 
 const isDevelopment = process.env.NODE_ENV;
 
-const port = isDevelopment
-  ? process.env.APP_PORT // Default to 3000 for development
-  : process.env.PORT; // Default to 10000 for production
+const port = isDevelopment ? process.env.APP_PORT : process.env.PORT;
 
 // Start the server and listen on the specified port
 app
