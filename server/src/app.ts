@@ -29,7 +29,7 @@ if (process.env.CLIENT_URL != null) {
 
 // If you need to allow extra origins, you can add something like this:
 const allowedOrigins = [
-  "https://rootstuff.netlify.app/",
+  "https://rootstuff.netlify.app",
   process.env.CLIENT_URL || "http://localhost:3000", // Default to localhost for development
 ];
 
