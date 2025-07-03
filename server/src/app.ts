@@ -24,10 +24,9 @@ app.use(cookieParser());
 import cors from "cors";
 
 // If you need to allow extra origins, you can add something like this:
-const allowedOrigins = [
-  "https://rootstuff.netlify.app",
-  process.env.CLIENT_URL || "http://localhost:3000", // Default to localhost for development
-];
+const allowedOrigins = [process.env.HOST_URL, process.env.CLIENT_URL].filter(
+  (origin): origin is string => typeof origin === "string",
+);
 
 app.use(
   cors({
