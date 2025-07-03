@@ -17,18 +17,14 @@ app.use((0, cookie_parser_1.default)());
 // You should NOT do that: such code uses the `cors` module to allow all origins, which can pose security issues.
 // For this pedagogical template, the CORS code allows CLIENT_URL in development mode (when process.env.CLIENT_URL is defined).
 const cors_1 = __importDefault(require("cors"));
-if (process.env.CLIENT_URL != null) {
-    app.use((0, cors_1.default)({ origin: [process.env.CLIENT_URL], credentials: true }));
-}
 // If you need to allow extra origins, you can add something like this:
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//     credentials: true,
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//   }),
-// );
+const allowedOrigins = [process.env.HOST_URL, process.env.CLIENT_URL].filter((origin) => typeof origin === "string");
+app.use((0, cors_1.default)({
+    origin: allowedOrigins,
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+}));
 // With ["http://mysite.com", "http://another-domain.com"]
 // to be replaced with an array of your trusted origins
 /* ************************************************************************* */
@@ -72,6 +68,9 @@ if (node_fs_1.default.existsSync(clientBuildPath)) {
         res.sendFile("index.html", { root: clientBuildPath });
     });
 }
+app.get("/", (req, res) => {
+    res.send("API RootStuff backend is running! 🎸");
+});
 // Define a middleware function to log errors
 const logErrors = (err, req, res, next) => {
     // Log the error to the console for debugging purposes

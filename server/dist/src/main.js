@@ -12,11 +12,9 @@ require("../database/checkConnection");
 // Import the Express application from ./app
 const app_1 = __importDefault(require("./app"));
 // Get the port from the environment variables
-const port = process.env.PORT || 8080
-if (!port) {
-  throw new Error("PORT is not defined in environment variables.");
-}
-// Start the server and listen on the specified port
+const port = process.env.NODE_ENV === "development"
+    ? process.env.APP_PORT
+    : process.env.PORT;
 app_1.default
     .listen(port, () => {
     console.info(`Server is listening on port ${port}`);
@@ -24,4 +22,3 @@ app_1.default
     .on("error", (err) => {
     console.error("Error:", err.message);
 });
-
