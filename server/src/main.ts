@@ -11,7 +11,7 @@ import app from "./app";
 
 // Get the port from the environment variables
 
-const port = process.env.PORT || process.env.APP_PORT || 3000;
+const port = process.env.PORT || process.env.DEV_PORT;
 
 app
   .listen(port, () => {
