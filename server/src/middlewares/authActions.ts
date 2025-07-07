@@ -45,12 +45,18 @@ const login: RequestHandler = async (req, res, next) => {
       const token = await jwt.sign(payload, process.env.APP_SECRET, {
         expiresIn: "10m",
       });
-      res.cookie("auth", token).send({
-        maxAge: 10 * 60 * 1000,
-        message: "Utilisateur connecté",
-        role: req.user.role,
-        name: req.user.firstname,
-      });
+      res
+        .cookie("auth", token, {
+          httpOnly: true,
+          sameSite: "none",
+          secure: true,
+        })
+        .send({
+          maxAge: 10 * 60 * 1000,
+          message: "Utilisateur connecté",
+          role: req.user.role,
+          name: req.user.firstname,
+        });
     }
   } catch (error) {
     next(error);
