@@ -24,11 +24,9 @@ app.use(cookieParser());
 import cors from "cors";
 
 // If you need to allow extra origins, you can add something like this:
-const allowedOrigins = [
-  process.env.HOST_URL,
-  process.env.CLIENT_URL,
-  process.env.DEV_URL,
-].filter((origin): origin is string => typeof origin === "string");
+const allowedOrigins = [process.env.DEV_URL, process.env.CLIENT_URL].filter(
+  (origin): origin is string => typeof origin === "string",
+);
 
 app.use(
   cors({
