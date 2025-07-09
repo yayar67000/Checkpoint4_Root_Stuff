@@ -93,7 +93,7 @@ export default function Navbar() {
         className="background_nav_img"
       />
       <Link to="/" className="logo_title">
-        <h1>Road Stuff</h1>
+        <h1>Root Stuff</h1>
       </Link>
       <div className="burgerContainer">
         <button
