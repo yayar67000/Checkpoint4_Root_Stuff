@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { useRevalidator } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
+import Login from "../../components/Navbar/Login";
+import { useAuth } from "../../services/AuthContext";
 import { useReservedVans } from "../../services/ReservedVanContext";
 
 export default function VansDetails() {
@@ -15,6 +17,9 @@ export default function VansDetails() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [isReserved, setIsReserved] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+
+  const { role } = useAuth();
 
   const { addToReserved, updateReservation, removeFromReserved } =
     useReservedVans();
@@ -181,7 +186,13 @@ export default function VansDetails() {
             id="reserve-button"
             type="button"
             className="colored-box"
-            onClick={() => setShowModal(true)}
+            onClick={() => {
+              if (role === "anonymous") {
+                setShowLogin(true);
+              } else {
+                setShowModal(true);
+              }
+            }}
           >
             Réserver
           </button>
@@ -275,6 +286,9 @@ export default function VansDetails() {
             Valider
           </button>
         </form>
+      )}
+      {showLogin && (
+        <Login isOpen={showLogin} onClose={() => setShowLogin(false)} />
       )}
     </main>
   );
